@@ -227,3 +227,52 @@ label {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Risk Category Styling */
+.risk-category-group {
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #DDD;
+    padding-bottom: 10px;
+}
+
+.risk-title {
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+}
+.risk-title.minimal { color: #2E8B57; } /* SeaGreen */
+.risk-title.low-mod { color: #D2691E; } /* Chocolate */
+.risk-title.high { color: #DC143C; } /* Crimson */
+.risk-title.critical { color: #8B0000; } /* DarkRed */
+
+.risk-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.risk-list li {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+    position: relative;
+    cursor: help;
+}
+
+/* Tooltip on Hover (Desktop) & Visual cue */
+.risk-list li:hover {
+    color: var(--primary-color);
+}
+
+.risk-list li::after {
+    content: " (" attr(data-th) ")"; /* ดึงข้อความภาษาไทยมาแสดงในวงเล็บ */
+    color: #888;
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+.small-text-red {
+    font-size: 0.8rem;
+    color: #CC0000;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
