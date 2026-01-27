@@ -1,79 +1,136 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ปฏิทินเตรียมยาน้ำผลิต</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon.png">
-  <link rel="apple-touch-icon" href="icon.png">
-  <meta name="theme-color" content="#fff7d6">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periop Meds Check - เภสัชกร</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="left"><h1>ปฏิทินเตรียมยาน้ำผลิต</h1></div>
-  <div class="right">
-    <button id="todayBtn" class="btn">วันนี้</button>
-    <button id="printBtn" class="btn">ปริ้นใบผลิตวันนี้</button>
-    <button id="flushBtn" class="btn ghost">ปริ้นสติกเกอร์</button>
-  </div>
-</header>
 
-<main class="layout">
-  <section class="cal card">
-    <div class="cal-header">
-      <div class="cal-nav">
-        <button id="prevMonth" class="btn nav" aria-label="เดือนก่อนหน้า">«</button>
-        <div id="monthTitle" class="title" title="คลิกเพื่อกลับไปเดือนปัจจุบัน"></div>
-        <button id="nextMonth" class="btn nav" aria-label="เดือนถัดไป">»</button>
-      </div>
-      <div class="weekday" aria-hidden="true">
-        <span>จ</span><span>อ</span><span>พ</span><span>พฤ</span><span>ศ</span><span>ส</span><span>อา</span>
-      </div>
-    </div>
-    <div id="calGrid" class="grid" role="grid" aria-label="ปฏิทิน"></div>
-  </section>
-
-  <section class="panel">
-    <div class="card">
-      <h2 id="panelTitle">รายการเตรียมยา: -</h2>
-      <form id="addForm" class="form" autocomplete="off">
-        <div class="field"><label>วันที่</label><input type="date" id="dateInput" class="input pastel" required></div>
-        <div class="field"><label>ชื่อยา</label><select id="drugSelect" class="input pastel" required><option value="" selected disabled>เลือกชื่อยา</option></select></div>
-        <div class="field"><label>ความแรง</label><select id="strengthSelect" class="input pastel" required><option value="" selected disabled>เลือกความแรงของยานี้</option></select></div>
-        <div class="field"><label>จำนวนขวด</label><input type="number" id="bottlesInput" class="input pastel" min="1" value="1" required></div>
-        <div class="actions"><button type="submit" class="btn">บันทึก</button></div>
-      </form>
-    </div>
-
-    <div class="card">
-      <h3>รายการเตรียมยาของวัน</h3>
-      <div id="dayLoading" class="loading" hidden>กำลังโหลด…</div>
-      <table id="planTable" class="table"><thead><tr><th>ยา</th><th>ความแรง</th><th>ขวด</th><th></th></tr></thead><tbody></tbody></table>
-    </div>
-
-    <div class="card">
-      <h3>สรุปสำหรับบุคลากร (รวมวัตถุดิบทั้งหมด)</h3>
-      <div id="sumLoading" class="loading" hidden>กำลังคำนวณ…</div>
-      <div class="grid2">
-        <div>
-          <h4>สรุปจำนวนขวด</h4>
-          <table id="tblDrugs" class="table"><thead><tr><th>ชื่อยา</th><th>ความแรง</th><th>ขวดรวม</th></tr></thead><tbody></tbody></table>
+    <header>
+        <div class="container">
+            <h1><i class="fa-solid fa-pills"></i> Perioperative Medication Manager</h1>
+            <p>ระบบช่วยตัดสินใจการหยุดยาก่อนผ่าตัด สำหรับเภสัชกร</p>
         </div>
-        <div>
-          <h4>สรุปวัตถุดิบ</h4>
-          <table id="tblMats" class="table"><thead><tr><th>วัตถุดิบ/เม็ดยา</th><th>หน่วย</th><th>รวม</th></tr></thead><tbody></tbody></table>
-        </div>
-      </div>
-      <div id="diag" class="muted small"></div>
-    </div>
-  </section>
-</main>
+    </header>
 
-<footer class="footer">โรงพยาบาลนพรัตนราชธานี • ข้อมูลเก็บใน Google Sheet</footer>
-<script>const GAS_BASE='https://script.google.com/macros/s/AKfycbyyuxt4M5vC2NINYvawjd0zB5km0SrzvCqZL1PxENgqB3sDH8krJDJvTknmyL5_zBHr2g/exec';</script>
-<script src="app.js"></script>
+    <main class="container">
+        <section id="step-1" class="card fade-in">
+            <div class="card-header">
+                <h2>1. ข้อมูลการผ่าตัด (Surgery Info)</h2>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>ประเภทความเสี่ยงเลือดออก (Bleeding Risk) <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('bleed-risk-info')"></i></label>
+                    <select id="bleedingRisk" class="form-control">
+                        <option value="" disabled selected>-- เลือกความเสี่ยง --</option>
+                        <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก)</option>
+                        <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง)</option>
+                        <option value="high">High Risk (เสี่ยงสูง)</option>
+                        <option value="neuro-spine">Neuro/Spine/Post-Eye (ห้ามเลือดออกเลย)</option>
+                    </select>
+                    
+                    <div id="bleed-risk-info" class="info-box hidden">
+                        <h4>คำอธิบาย Bleeding Risk</h4>
+                        <ul>
+                            <li><strong>Minimal:</strong> ต้อกระจก, ทำฟันเล็กน้อย, ผ่าตัดผิวหนังเล็กน้อย</li>
+                            <li><strong>Low/Mod:</strong> ผ่าไส้ติ่ง, ผ่าถุงน้ำดี, ผ่าตัดกระดูกทั่วไป, ส่องกล้องลำไส้ใหญ่ (Polypectomy)</li>
+                            <li><strong>High:</strong> ผ่าตัดช่องท้องใหญ่, ผ่าตัดหลอดเลือด, ผ่าตัดตับ/ปอด/ไต, ผ่าตัดมะเร็ง</li>
+                            <li><strong>Neuro/Spine:</strong> ผ่าตัดสมอง, ไขสันหลัง, จอประสาทตา (กลุ่มนี้เลือดออกนิดเดียวก็อันตราย)</li>
+                        </ul>
+                        <div class="image-placeholder">
+                            <p>[วางรูปตาราง Bleeding Risk จาก CHEST 2022 ตรงนี้]</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>ค่าการทำงานของไต (CrCl / eGFR) *ถ้ามี</label>
+                    <input type="number" id="renalFunction" class="form-control" placeholder="ml/min (จำเป็นสำหรับยา DOAC)">
+                </div>
+
+                <div class="form-group">
+                    <label>วันที่ผ่าตัด (Surgery Date)</label>
+                    <input type="date" id="surgeryDate" class="form-control">
+                </div>
+            </div>
+        </section>
+
+        <section id="step-2" class="card fade-in">
+            <div class="card-header">
+                <h2>2. เลือกรายการยาที่ผู้ป่วยใช้ (Current Meds)</h2>
+            </div>
+            <div class="card-body">
+                <div class="search-box">
+                    <input type="text" id="drugSearch" placeholder="พิมพ์ชื่อยาเพื่อค้นหา... (เช่น Warfarin, Aspirin, Ozempic)" onkeyup="filterDrugs()">
+                    <i class="fa-solid fa-search search-icon"></i>
+                </div>
+
+                <div id="drugListContainer" class="drug-list-container">
+                    </div>
+
+                <div id="selectedDrugsArea" class="selected-drugs-area hidden">
+                    <h4>ยาที่เลือกแล้ว:</h4>
+                    <div id="selectedTags" class="tags-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="step-3" class="card fade-in hidden">
+            <div class="card-header">
+                <h2>3. รายละเอียดเพิ่มเติม (Specific Details)</h2>
+            </div>
+            <div class="card-body" id="dynamicQuestions">
+                </div>
+        </section>
+
+        <div class="action-area">
+            <button onclick="processResults()" class="btn-primary">ประมวลผลคำแนะนำ (Analyze)</button>
+        </div>
+
+        <section id="results-section" class="card fade-in hidden">
+            <div class="card-header result-header">
+                <h2><i class="fa-solid fa-clipboard-check"></i> คำแนะนำ (Recommendation)</h2>
+            </div>
+            <div class="card-body">
+                <div id="resultContent"></div>
+                
+                <div class="image-placeholder">
+                    <p>[วางรูปสรุป Timeline การหยุดยา หรือ QR Code คู่มือฉบับเต็ม]</p>
+                </div>
+
+                <div class="disclaimer">
+                    <p><strong>หมายเหตุ:</strong> ผลลัพธ์จากการคำนวณเป็นเพียงคำแนะนำเบื้องต้นจาก Guideline (AHA 2024, CHEST 2022, SPAQI) การตัดสินใจสุดท้ายขึ้นอยู่กับดุลยพินิจของแพทย์เจ้าของไข้และศัลยแพทย์</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="card fade-in">
+             <div class="card-header secondary-header" onclick="toggleInfo('risk-advice-content')">
+                <h3><i class="fa-solid fa-heart-pulse"></i> ข้อมูลเพิ่มเติม: การประเมินความเสี่ยงและส่งตรวจ (Option C) <i class="fa-solid fa-chevron-down"></i></h3>
+            </div>
+            <div id="risk-advice-content" class="card-body hidden">
+                <p>คำแนะนำการส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ)</p>
+                <ul>
+                    <li><strong>ECG:</strong> ไม่แนะนำใน Low risk surgery / แนะนำในผู้ป่วยที่มีโรคหัวใจ หรือมีอาการเหนื่อยเจ็บหน้าอก</li>
+                    <li><strong>Chest X-ray:</strong> ไม่แนะนำให้ทำเป็น Routine</li>
+                    <li><strong>Lab (BNP/Troponin):</strong> พิจารณาเจาะในผู้ป่วยอายุ > 65 ปี หรือมี RCRI >= 1 ที่จะผ่าตัดความเสี่ยงสูง (Elevated Risk)</li>
+                </ul>
+                <div class="image-placeholder">
+                    <p>[วางรูปตาราง RCRI Score หรือ Flowchart AHA 2024]</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>พัฒนาโดย [ชื่อหน่วยงานของคุณ] | ข้อมูลอ้างอิง: AHA/ACC 2024, CHEST 2022, SPAQI, Siriraj Hospital</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
