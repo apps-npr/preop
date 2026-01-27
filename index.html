@@ -24,32 +24,73 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <label>ประเภทความเสี่ยงเลือดออก (Bleeding Risk) <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('bleed-risk-info')"></i></label>
+                    <label>
+                        ความเสี่ยงเลือดออก (Bleeding Risk) 
+                        <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('bleed-risk-info')" title="คลิกเพื่อดูรายชื่อหัตถการ"></i>
+                    </label>
                     <select id="bleedingRisk" class="form-control">
-                        <option value="" disabled selected>-- เลือกความเสี่ยง --</option>
+                        <option value="" disabled selected>-- Select Bleeding Risk Category --</option>
                         <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก)</option>
                         <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง)</option>
                         <option value="high">High Risk (เสี่ยงสูง)</option>
-                        <option value="neuro-spine">Neuro/Spine/Post-Eye (ห้ามเลือดออกเลย)</option>
+                        <option value="neuro-spine">Neuroaxial/Critical Site (ห้ามเลือดออกเด็ดขาด)</option>
                     </select>
                     
                     <div id="bleed-risk-info" class="info-box hidden">
-                        <h4>คำอธิบาย Bleeding Risk</h4>
-                        <ul>
-                            <li><strong>Minimal:</strong> ต้อกระจก, ทำฟันเล็กน้อย, ผ่าตัดผิวหนังเล็กน้อย</li>
-                            <li><strong>Low/Mod:</strong> ผ่าไส้ติ่ง, ผ่าถุงน้ำดี, ผ่าตัดกระดูกทั่วไป, ส่องกล้องลำไส้ใหญ่ (Polypectomy)</li>
-                            <li><strong>High:</strong> ผ่าตัดช่องท้องใหญ่, ผ่าตัดหลอดเลือด, ผ่าตัดตับ/ปอด/ไต, ผ่าตัดมะเร็ง</li>
-                            <li><strong>Neuro/Spine:</strong> ผ่าตัดสมอง, ไขสันหลัง, จอประสาทตา (กลุ่มนี้เลือดออกนิดเดียวก็อันตราย)</li>
-                        </ul>
-                        <div class="image-placeholder">
-                            <p>[วางรูปตาราง Bleeding Risk จาก CHEST 2022 ตรงนี้]</p>
+                        <h4><i class="fa-solid fa-list-ul"></i> Procedural Bleeding Risk Classification</h4>
+                        <p class="small-text">อ้างอิง: CHEST Guideline 2022</p>
+
+                        <div class="risk-category-group">
+                            <h5 class="risk-title minimal"><i class="fa-solid fa-check-circle"></i> Minimal Risk</h5>
+                            <ul class="risk-list">
+                                <li data-th="ผ่าตัดต้อกระจก">Cataract surgery</li>
+                                <li data-th="หัตถการทันตกรรมเล็กน้อย (ถอนฟัน 1-2 ซี่, ขูดหินปูน, รักษารากฟัน)">Minor dental procedures (Extraction 1-2 teeth, Cleaning, Endodontic)</li>
+                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก (ไฝ, ซีสต์, มะเร็งผิวหนังขนาดเล็ก)">Minor dermatologic excision (Basal/Squamous cell carcinoma)</li>
+                                <li data-th="เจาะไขกระดูก หรือ เจาะน้ำไขสันหลัง">Bone marrow aspiration / Lumbar puncture</li>
+                            </ul>
+                        </div>
+
+                        <div class="risk-category-group">
+                            <h5 class="risk-title low-mod"><i class="fa-solid fa-exclamation-circle"></i> Low/Moderate Risk</h5>
+                            <ul class="risk-list">
+                                <li data-th="ผ่าตัดถุงน้ำดี (ส่องกล้อง)">Laparoscopic Cholecystectomy</li>
+                                <li data-th="ผ่าตัดไส้เลื่อนขาหนีบ">Inguinal Hernia Repair</li>
+                                <li data-th="ผ่าตัดไส้ติ่ง">Appendectomy</li>
+                                <li data-th="ผ่าตัดส่องกล้องข้อ (เข่า, ไหล่)">Arthroscopy</li>
+                                <li data-th="ส่องกล้องทางเดินอาหาร/ลำไส้ใหญ่ พร้อมตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy/polypectomy</li>
+                                <li data-th="ฉีดสีหัวใจ (ทางข้อมือ/ขาหนีบ)">Coronary Angiography</li>
+                                <li data-th="ผ่าตัดเต้านม (ตัดก้อน/ตัดเต้านม)">Breast surgery (Lumpectomy/Mastectomy)</li>
+                            </ul>
+                        </div>
+
+                        <div class="risk-category-group">
+                            <h5 class="risk-title high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk</h5>
+                            <ul class="risk-list">
+                                <li data-th="ผ่าตัดใหญ่ในช่องท้อง/อุ้งเชิงกราน (เช่น มะเร็ง)">Major Abdominal/Pelvic surgery (Cancer resection)</li>
+                                <li data-th="ผ่าตัดปอด/ช่องอก">Thoracic surgery (Lobectomy, Pneumonectomy)</li>
+                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า/สะโพก หรือผ่าตัดกระดูกใหญ่">Major Orthopedic surgery (Hip/Knee replacement)</li>
+                                <li data-th="ผ่าตัดหลอดเลือดใหญ่ (เส้นเลือดโป่งพอง, บายพาส)">Vascular surgery (AAA repair, Vascular bypass)</li>
+                                <li data-th="ผ่าตัดทางเดินปัสสาวะ (ต่อมลูกหมาก, ตัดไต)">Urological surgery (TURP, Nephrectomy, Bladder resection)</li>
+                                <li data-th="เจาะชิ้นเนื้อตับหรือไต">Liver or Kidney biopsy</li>
+                            </ul>
+                            
+                        </div>
+
+                        <div class="risk-category-group">
+                            <h5 class="risk-title critical"><i class="fa-solid fa-skull-crossbones"></i> Neuroaxial / Critical Site</h5>
+                            <p class="small-text-red">*กลุ่มนี้เลือดออกเพียงเล็กน้อยอาจส่งผลรุนแรงถึงชีวิตหรือความพิการ</p>
+                            <ul class="risk-list">
+                                <li data-th="ผ่าตัดสมอง / ในกะโหลกศีรษะ">Intracranial surgery</li>
+                                <li data-th="ผ่าตัดกระดูกสันหลัง / ไขสันหลัง">Spinal surgery / Epidural anesthesia</li>
+                                <li data-th="ผ่าตัดจอประสาทตา / วุ้นในตา (ส่วนหลังลูกตา)">Posterior eye surgery (Vitrectomy, Retinal surgery)</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>ค่าการทำงานของไต (CrCl / eGFR) *ถ้ามี</label>
-                    <input type="number" id="renalFunction" class="form-control" placeholder="ml/min (จำเป็นสำหรับยา DOAC)">
+                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC</span></label>
+                    <input type="number" id="renalFunction" class="form-control" placeholder="ระบุค่าเป็น ml/min (Default = 90)">
                 </div>
 
                 <div class="form-group">
