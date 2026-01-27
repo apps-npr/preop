@@ -13,11 +13,25 @@
     <header>
         <div class="container">
             <h1><i class="fa-solid fa-pills"></i> Perioperative Medication Manager</h1>
-            <p>ระบบช่วยตัดสินใจการหยุดยาก่อนผ่าตัด สำหรับเภสัชกร</p>
+            <p>ระบบช่วยตัดสินใจการหยุดยาก่อนผ่าตัด (AHA 2024 / CHEST 2022 / SPAQI)</p>
         </div>
     </header>
 
     <main class="container">
+        
+        <section class="card fade-in" style="background-color: #fff3cd; border: 1px solid #ffeeba;">
+            <div class="card-body">
+                <h4 style="margin-top:0; color:#856404;"><i class="fa-solid fa-clipboard-question"></i> Checklist: อย่าลืมถามคนไข้!</h4>
+                <div class="checkbox-group">
+                    <label><input type="checkbox"> กิน<strong>ยาละลายลิ่มเลือด</strong> (Warfarin/DOAC) หรือไม่?</label><br>
+                    <label><input type="checkbox"> กิน<strong>ยาต้านเกล็ดเลือด</strong> (Aspirin/Plavix) หรือเคยทำบอลลูนหัวใจ?</label><br>
+                    <label><input type="checkbox"> กิน<strong>อาหารเสริม/สมุนไพร</strong> (น้ำมันปลา/แปะก๊วย/วิตามิน) ไหม?</label><br>
+                    <label><input type="checkbox"> กิน<strong>ยาแก้ปวด</strong> (กัดกระเพาะ/แก้ปวดข้อ) บ่อยๆ ไหม?</label><br>
+                    <label><input type="checkbox"> ฉีด<strong>ยาเบาหวานลดน้ำหนัก</strong> (ปากกาลดน้ำหนัก) ไหม?</label>
+                </div>
+            </div>
+        </section>
+
         <section id="step-1" class="card fade-in">
             <div class="card-header">
                 <h2>1. ข้อมูลการผ่าตัด (Surgery Info)</h2>
@@ -29,7 +43,7 @@
                         <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('bleed-risk-info')" title="คลิกเพื่อดูรายชื่อหัตถการ"></i>
                     </label>
                     <select id="bleedingRisk" class="form-control">
-                        <option value="" disabled selected>-- Select Bleeding Risk Category --</option>
+                        <option value="" disabled selected>-- เลือกความเสี่ยง (Select Category) --</option>
                         <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก)</option>
                         <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง)</option>
                         <option value="high">High Risk (เสี่ยงสูง)</option>
@@ -44,9 +58,9 @@
                             <h5 class="risk-title minimal"><i class="fa-solid fa-check-circle"></i> Minimal Risk</h5>
                             <ul class="risk-list">
                                 <li data-th="ผ่าตัดต้อกระจก">Cataract surgery</li>
-                                <li data-th="หัตถการทันตกรรมเล็กน้อย (ถอนฟัน 1-2 ซี่, ขูดหินปูน, รักษารากฟัน)">Minor dental procedures (Extraction 1-2 teeth, Cleaning, Endodontic)</li>
-                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก (ไฝ, ซีสต์, มะเร็งผิวหนังขนาดเล็ก)">Minor dermatologic excision (Basal/Squamous cell carcinoma)</li>
-                                <li data-th="เจาะไขกระดูก หรือ เจาะน้ำไขสันหลัง">Bone marrow aspiration / Lumbar puncture</li>
+                                <li data-th="หัตถการทันตกรรมเล็กน้อย (ถอนฟัน 1-2 ซี่, ขูดหินปูน)">Minor dental procedures</li>
+                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก (ไฝ, ซีสต์)">Minor dermatologic excision</li>
+                                <li data-th="เจาะไขกระดูก/น้ำไขสันหลัง">Bone marrow aspiration / Lumbar puncture</li>
                             </ul>
                         </div>
 
@@ -56,24 +70,22 @@
                                 <li data-th="ผ่าตัดถุงน้ำดี (ส่องกล้อง)">Laparoscopic Cholecystectomy</li>
                                 <li data-th="ผ่าตัดไส้เลื่อนขาหนีบ">Inguinal Hernia Repair</li>
                                 <li data-th="ผ่าตัดไส้ติ่ง">Appendectomy</li>
-                                <li data-th="ผ่าตัดส่องกล้องข้อ (เข่า, ไหล่)">Arthroscopy</li>
-                                <li data-th="ส่องกล้องทางเดินอาหาร/ลำไส้ใหญ่ พร้อมตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy/polypectomy</li>
-                                <li data-th="ฉีดสีหัวใจ (ทางข้อมือ/ขาหนีบ)">Coronary Angiography</li>
-                                <li data-th="ผ่าตัดเต้านม (ตัดก้อน/ตัดเต้านม)">Breast surgery (Lumpectomy/Mastectomy)</li>
+                                <li data-th="ส่องกล้องข้อ (เข่า, ไหล่)">Arthroscopy</li>
+                                <li data-th="ส่องกล้องตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy</li>
+                                <li data-th="ฉีดสีหัวใจ">Coronary Angiography</li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
                             <h5 class="risk-title high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk</h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดใหญ่ในช่องท้อง/อุ้งเชิงกราน (เช่น มะเร็ง)">Major Abdominal/Pelvic surgery (Cancer resection)</li>
-                                <li data-th="ผ่าตัดปอด/ช่องอก">Thoracic surgery (Lobectomy, Pneumonectomy)</li>
-                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า/สะโพก หรือผ่าตัดกระดูกใหญ่">Major Orthopedic surgery (Hip/Knee replacement)</li>
-                                <li data-th="ผ่าตัดหลอดเลือดใหญ่ (เส้นเลือดโป่งพอง, บายพาส)">Vascular surgery (AAA repair, Vascular bypass)</li>
-                                <li data-th="ผ่าตัดทางเดินปัสสาวะ (ต่อมลูกหมาก, ตัดไต)">Urological surgery (TURP, Nephrectomy, Bladder resection)</li>
+                                <li data-th="ผ่าตัดใหญ่ในช่องท้อง/มะเร็ง">Major Abdominal/Pelvic surgery (Cancer)</li>
+                                <li data-th="ผ่าตัดปอด/ช่องอก">Thoracic surgery</li>
+                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า/สะโพก">Major Orthopedic surgery (Hip/Knee replacement)</li>
+                                <li data-th="ผ่าตัดหลอดเลือดใหญ่">Vascular surgery (AAA repair, Bypass)</li>
+                                <li data-th="ผ่าตัดทางเดินปัสสาวะ (ต่อมลูกหมาก, ไต)">Urological surgery (TURP, Nephrectomy)</li>
                                 <li data-th="เจาะชิ้นเนื้อตับหรือไต">Liver or Kidney biopsy</li>
                             </ul>
-                            
                         </div>
 
                         <div class="risk-category-group">
@@ -82,14 +94,18 @@
                             <ul class="risk-list">
                                 <li data-th="ผ่าตัดสมอง / ในกะโหลกศีรษะ">Intracranial surgery</li>
                                 <li data-th="ผ่าตัดกระดูกสันหลัง / ไขสันหลัง">Spinal surgery / Epidural anesthesia</li>
-                                <li data-th="ผ่าตัดจอประสาทตา / วุ้นในตา (ส่วนหลังลูกตา)">Posterior eye surgery (Vitrectomy, Retinal surgery)</li>
+                                <li data-th="ผ่าตัดจอประสาทตา (ส่วนหลังลูกตา)">Posterior eye surgery (Vitrectomy)</li>
                             </ul>
+                        </div>
+                        
+                        <div class="image-container">
+                            <img src="images/table_bleeding_risk.png" alt="ตารางความเสี่ยงเลือดออก" style="width:100%; border-radius:10px;">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC</span></label>
+                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH</span></label>
                     <input type="number" id="renalFunction" class="form-control" placeholder="ระบุค่าเป็น ml/min (Default = 90)">
                 </div>
 
@@ -106,7 +122,7 @@
             </div>
             <div class="card-body">
                 <div class="search-box">
-                    <input type="text" id="drugSearch" placeholder="พิมพ์ชื่อยาเพื่อค้นหา... (เช่น Warfarin, Aspirin, Ozempic)" onkeyup="filterDrugs()">
+                    <input type="text" id="drugSearch" placeholder="คลิกเพื่อเลือกยา หรือพิมพ์ค้นหา... (เช่น Warfarin, Aspirin)" autocomplete="off">
                     <i class="fa-solid fa-search search-icon"></i>
                 </div>
 
@@ -137,11 +153,12 @@
                 <h2><i class="fa-solid fa-clipboard-check"></i> คำแนะนำ (Recommendation)</h2>
             </div>
             <div class="card-body">
-                <div id="resultContent"></div>
                 
-                <div class="image-placeholder">
-                    <p>[วางรูปสรุป Timeline การหยุดยา หรือ QR Code คู่มือฉบับเต็ม]</p>
+                <div class="image-container" style="margin-bottom: 20px;">
+                    <img id="summary-timeline-img" src="images/summary_timeline.png" alt="Timeline การหยุดยา" style="width:100%; max-width:500px; border-radius:10px; display:block; margin:0 auto;">
                 </div>
+
+                <div id="resultContent"></div>
 
                 <div class="disclaimer">
                     <p><strong>หมายเหตุ:</strong> ผลลัพธ์จากการคำนวณเป็นเพียงคำแนะนำเบื้องต้นจาก Guideline (AHA 2024, CHEST 2022, SPAQI) การตัดสินใจสุดท้ายขึ้นอยู่กับดุลยพินิจของแพทย์เจ้าของไข้และศัลยแพทย์</p>
@@ -151,17 +168,16 @@
         
         <section class="card fade-in">
              <div class="card-header secondary-header" onclick="toggleInfo('risk-advice-content')">
-                <h3><i class="fa-solid fa-heart-pulse"></i> ข้อมูลเพิ่มเติม: การประเมินความเสี่ยงและส่งตรวจ (Option C) <i class="fa-solid fa-chevron-down"></i></h3>
+                <h3><i class="fa-solid fa-heart-pulse"></i> ข้อมูลเพิ่มเติม: การประเมินความเสี่ยงและส่งตรวจ (RCRI) <i class="fa-solid fa-chevron-down"></i></h3>
             </div>
             <div id="risk-advice-content" class="card-body hidden">
-                <p>คำแนะนำการส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ)</p>
+                <p>การส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ)</p>
                 <ul>
                     <li><strong>ECG:</strong> ไม่แนะนำใน Low risk surgery / แนะนำในผู้ป่วยที่มีโรคหัวใจ หรือมีอาการเหนื่อยเจ็บหน้าอก</li>
-                    <li><strong>Chest X-ray:</strong> ไม่แนะนำให้ทำเป็น Routine</li>
                     <li><strong>Lab (BNP/Troponin):</strong> พิจารณาเจาะในผู้ป่วยอายุ > 65 ปี หรือมี RCRI >= 1 ที่จะผ่าตัดความเสี่ยงสูง (Elevated Risk)</li>
                 </ul>
-                <div class="image-placeholder">
-                    <p>[วางรูปตาราง RCRI Score หรือ Flowchart AHA 2024]</p>
+                <div class="image-container">
+                     <img src="images/table_rcri_score.png" alt="ตาราง RCRI Score" style="width:100%; max-width:400px;">
                 </div>
             </div>
         </section>
@@ -169,7 +185,7 @@
     </main>
 
     <footer>
-        <p>พัฒนาโดย [ชื่อหน่วยงานของคุณ] | ข้อมูลอ้างอิง: AHA/ACC 2024, CHEST 2022, SPAQI, Siriraj Hospital</p>
+        <p>Developed for Pharmacists | Guidelines: AHA/ACC 2024, CHEST 2022, SPAQI</p>
     </footer>
 
     <script src="script.js"></script>
