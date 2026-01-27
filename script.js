@@ -1,24 +1,40 @@
-// --- Database: รายการยา ---
+// --- Database: รายการยา (Updated) ---
 const drugDatabase = [
+    // Anticoagulants
     { id: 'warfarin', name: 'Warfarin (Coumadin)', category: 'anticoagulant' },
     { id: 'apixaban', name: 'Apixaban (Eliquis)', category: 'doac' },
     { id: 'rivaroxaban', name: 'Rivaroxaban (Xarelto)', category: 'doac' },
     { id: 'dabigatran', name: 'Dabigatran (Pradaxa)', category: 'doac' },
     { id: 'edoxaban', name: 'Edoxaban (Lixiana)', category: 'doac' },
+    
+    // Antiplatelets
     { id: 'aspirin', name: 'Aspirin (ASA)', category: 'antiplatelet' },
     { id: 'clopidogrel', name: 'Clopidogrel (Plavix)', category: 'antiplatelet' },
     { id: 'ticagrelor', name: 'Ticagrelor (Brilinta)', category: 'antiplatelet' },
+    { id: 'prasugrel', name: 'Prasugrel (Effient)', category: 'antiplatelet' },
+    { id: 'cilostazol', name: 'Cilostazol (Pletaal)', category: 'antiplatelet' },
+
+    // Diabetes
     { id: 'dapagliflozin', name: 'Dapagliflozin (Forxiga)', category: 'sglt2' },
     { id: 'empagliflozin', name: 'Empagliflozin (Jardiance)', category: 'sglt2' },
-    { id: 'semaglutide_inj', name: 'Semaglutide Injection (Ozempic/Wegovy)', category: 'glp1_weekly' },
+    { id: 'canagliflozin', name: 'Canagliflozin (Invokana)', category: 'sglt2' },
+    { id: 'semaglutide_inj', name: 'Semaglutide Inj. (Ozempic/Wegovy)', category: 'glp1_weekly' },
+    { id: 'dulaglutide', name: 'Dulaglutide (Trulicity)', category: 'glp1_weekly' },
+    { id: 'tirzepatide', name: 'Tirzepatide (Mounjaro)', category: 'glp1_weekly' },
     { id: 'liraglutide', name: 'Liraglutide (Victoza/Saxenda)', category: 'glp1_daily' },
-    { id: 'metformin', name: 'Metformin', category: 'dm_oral' }
+    { id: 'metformin', name: 'Metformin', category: 'dm_oral' },
+    { id: 'sulfonylurea', name: 'Sulfonylureas (Glipizide/Glibenclamide)', category: 'dm_oral' },
+
+    // Cardiovascular / Anti-HT (New AHA 2024)
+    { id: 'acei', name: 'ACE Inhibitors (Enalapril/Lisinopril/etc.)', category: 'raas_inhibitor' },
+    { id: 'arb', name: 'ARBs (Losartan/Valsartan/etc.)', category: 'raas_inhibitor' },
+    { id: 'betablocker', name: 'Beta-blockers (Atenolol/Bisoprolol/Carvedilol)', category: 'betablocker' },
+    { id: 'diuretic', name: 'Diuretics (Furosemide/HCTZ)', category: 'diuretic' }
 ];
 
 let selectedDrugs = [];
 
 // --- UI Functions ---
-
 function toggleInfo(id) {
     const el = document.getElementById(id);
     el.classList.toggle('hidden');
@@ -34,6 +50,8 @@ function filterDrugs() {
     filtered.forEach(drug => {
         const div = document.createElement('div');
         div.className = 'drug-item';
+        // (Optional) ถ้ามีรูปภาพ ให้ใส่ <img> tag ตรงนี้ได้
+        // div.innerHTML = `<img src="images/${drug.id}.jpg" class="drug-thumb"> ${drug.name}`;
         div.innerText = drug.name;
         div.onclick = () => selectDrug(drug);
         listContainer.appendChild(div);
@@ -82,29 +100,61 @@ function checkSpecificQuestions() {
     container.innerHTML = '';
     let hasQuestions = false;
 
-    // Check Warfarin -> Ask Bridging Risk
+    // 1. Warfarin -> Ask Bridging Risk
     if (selectedDrugs.find(d => d.id === 'warfarin')) {
         hasQuestions = true;
         const html = `
             <div class="form-group highlight-box">
                 <h4><i class="fa-solid fa-heart-crack"></i> คำถามสำหรับ Warfarin: ความเสี่ยงลิ่มเลือด (Thrombotic Risk)</h4>
-                <p class="small-text">เลือกข้อที่ผู้ป่วยมี (ถ้าไม่มีไม่ต้องเลือก):</p>
+                <p class="small-text">เลือกข้อที่ผู้ป่วยมี (เพื่อประเมิน Bridging):</p>
                 
-                <label><input type="checkbox" id="war_mech_valve"> มีลิ้นหัวใจเทียม (Mechanical Mitral/Aortic Valve)</label>
-                <label><input type="checkbox" id="war_af_stroke"> เป็น AF + เคยมี Stroke/TIA ใน 3 เดือน หรือ CHADS2 สูง</label>
-                <label><input type="checkbox" id="war_vte"> เป็น VTE (ลิ่มเลือดอุดตันที่ขา/ปอด) ในช่วง 3 เดือนที่ผ่านมา</label>
+                <div class="checkbox-group">
+                    <label style="font-weight:bold; color:#d9534f;">Mechanical Heart Valve:</label><br>
+                    <label><input type="checkbox" id="war_mech_mitral"> ลิ้นหัวใจเทียมตำแหน่ง Mitral (Mitral Valve)</label><br>
+                    <label><input type="checkbox" id="war_mech_aortic"> ลิ้นหัวใจเทียมตำแหน่ง Aortic (Aortic Valve) รุ่นเก่า (Caged-ball/Tilting)</label><br>
+                    <label><input type="checkbox" id="war_mech_stroke"> เคยมี Stroke/TIA ภายใน 6 เดือน</label>
+                </div>
+                <hr>
+                <div class="checkbox-group">
+                    <label style="font-weight:bold; color:#d9534f;">Atrial Fibrillation (AF):</label><br>
+                    <label><input type="checkbox" id="war_af_high"> CHA2DS2-VASc score ≥ 7</label><br>
+                    <label><input type="checkbox" id="war_af_stroke"> เคยมี Stroke/TIA ภายใน 3 เดือน</label><br>
+                    <label><input type="checkbox" id="war_af_rheumatic"> เป็น Rheumatic Heart Disease</label>
+                </div>
+                <hr>
+                <div class="checkbox-group">
+                    <label style="font-weight:bold; color:#d9534f;">VTE (DVT/PE):</label><br>
+                    <label><input type="checkbox" id="war_vte_recent"> เพิ่งเป็น VTE ภายใน 3 เดือน</label><br>
+                    <label><input type="checkbox" id="war_vte_severe"> มีภาวะ Severe Thrombophilia (เช่น Protein C/S def, Antiphospholipid)</label>
+                </div>
                 
-                <div class="image-placeholder small">
-                   <p>[วางรูปตาราง Stratification for Bridging ตรงนี้]</p>
+                <div class="image-container mt-2">
+                   <img src="images/table_bridging_risk.png" alt="ตารางประเมินความเสี่ยงลิ่มเลือด" style="width:100%; max-width:400px; border-radius:5px;">
                 </div>
             </div>
         `;
         container.innerHTML += html;
     }
 
-    // Check Antiplatelets -> Ask Stent
-    const hasAntiplatelet = selectedDrugs.some(d => d.category === 'antiplatelet');
-    if (hasAntiplatelet) {
+    // 2. ACEI/ARB -> Ask Indication
+    if (selectedDrugs.find(d => d.category === 'raas_inhibitor')) {
+        hasQuestions = true;
+        const html = `
+            <div class="form-group highlight-box" style="border-left-color: #f0ad4e; background-color: #fcf8e3;">
+                <h4><i class="fa-solid fa-heart-pulse"></i> คำถามสำหรับ ACEI/ARB:</h4>
+                <label>ผู้ป่วยใช้ยานี้เพื่อรักษาอะไรเป็นหลัก?</label>
+                <select id="raas_indication" class="form-control">
+                    <option value="ht">รักษาความดันโลหิตสูง (Hypertension) - พบส่วนใหญ่</option>
+                    <option value="hf">รักษาหัวใจล้มเหลว (Heart Failure - HFrEF)</option>
+                </select>
+                <small class="text-muted">*AHA 2024 แนะนำต่างกันตามข้อบ่งชี้</small>
+            </div>
+        `;
+        container.innerHTML += html;
+    }
+
+    // 3. Antiplatelets -> Ask Stent
+    if (selectedDrugs.some(d => d.category === 'antiplatelet')) {
         hasQuestions = true;
         const html = `
             <div class="form-group highlight-box">
@@ -116,8 +166,8 @@ function checkSpecificQuestions() {
                 </select>
                 
                 <div id="stent_details" class="hidden mt-2">
-                    <label>วันที่ใส่ (Implant Date):</label>
-                    <input type="date" id="stent_date" class="form-control">
+                    <label>วันที่ใส่ (Implant Date) หรือระบุจำนวนเดือน:</label>
+                    <input type="text" id="stent_time_text" class="form-control" placeholder="เช่น 3 เดือน, 6 สัปดาห์">
                     <label>ชนิด Stent (ถ้าทราบ):</label>
                     <select id="stent_type" class="form-control">
                         <option value="des">Drug-Eluting Stent (DES) - ส่วนใหญ่เป็นชนิดนี้</option>
@@ -129,7 +179,7 @@ function checkSpecificQuestions() {
         container.innerHTML += html;
     }
 
-    // Check GLP-1 Weekly -> Ask Last Dose
+    // 4. GLP-1 Weekly -> Ask Last Dose
     if (selectedDrugs.find(d => d.category === 'glp1_weekly')) {
         hasQuestions = true;
         const html = `
@@ -142,11 +192,8 @@ function checkSpecificQuestions() {
         container.innerHTML += html;
     }
 
-    if (hasQuestions) {
-        section.classList.remove('hidden');
-    } else {
-        section.classList.add('hidden');
-    }
+    if (hasQuestions) section.classList.remove('hidden');
+    else section.classList.add('hidden');
 }
 
 // Helper for Stent UI
@@ -160,142 +207,221 @@ window.toggleStentDate = function() {
 // --- Main Logic Processing ---
 function processResults() {
     const bleedRisk = document.getElementById('bleedingRisk').value;
-    const crcl = parseInt(document.getElementById('renalFunction').value) || 90; // Default normal
+    const crclInput = document.getElementById('renalFunction').value;
+    const crcl = crclInput ? parseInt(crclInput) : 90; // Default normal if empty
+    
     const resultDiv = document.getElementById('resultContent');
     const resultSection = document.getElementById('results-section');
     const surgeryDateStr = document.getElementById('surgeryDate').value;
     const surgeryDate = surgeryDateStr ? new Date(surgeryDateStr) : null;
 
     if (!bleedRisk) {
-        alert("กรุณาระบุความเสี่ยงเลือดออก (Bleeding Risk) ก่อนครับ");
+        alert("กรุณาระบุความเสี่ยงเลือดออก (Bleeding Risk) ใน Step 1 ก่อนครับ");
         return;
     }
 
     let recommendations = "";
 
-    // 1. Logic: Anticoagulants
+    // 1. Loop Through Drugs
     selectedDrugs.forEach(drug => {
         let advice = "";
-        let styleClass = "rec-stop"; // Default to stop warning
+        let styleClass = "rec-stop"; // Default Red
+        let bridgingContent = ""; // For Warfarin Bridging Info
 
-        // --- Warfarin ---
+        // --- A. Warfarin Logic ---
         if (drug.id === 'warfarin') {
             if (bleedRisk === 'minimal') {
-                advice = `<strong>${drug.name}:</strong> ไม่ต้องหยุดยา (Continue) <br><small>เช็ค INR ก่อนทำ 1-2 วัน (Target 2-3)</small>`;
+                advice = `<strong>${drug.name}:</strong> <span style="color:green">ไม่ต้องหยุดยา (Continue)</span> <br><small>เช็ค INR ก่อนทำ 1-2 วัน (Target 2-3)</small>`;
                 styleClass = "rec-continue";
             } else {
-                advice = `<strong>${drug.name}:</strong> หยุดยา 5 วันก่อนผ่าตัด`;
+                advice = `<strong>${drug.name}:</strong> <span style="color:red">หยุดยา 5 วันก่อนผ่าตัด</span>`;
                 
-                // Check Bridging
-                const isMechValve = document.getElementById('war_mech_valve')?.checked;
+                // Check Bridging Need
+                const isMechMitral = document.getElementById('war_mech_mitral')?.checked;
+                const isMechAorticOld = document.getElementById('war_mech_aortic')?.checked;
+                const isMechStroke = document.getElementById('war_mech_stroke')?.checked;
+                const isAfHigh = document.getElementById('war_af_high')?.checked;
                 const isAfStroke = document.getElementById('war_af_stroke')?.checked;
-                const isVte = document.getElementById('war_vte')?.checked;
+                const isAfRheum = document.getElementById('war_af_rheumatic')?.checked;
+                const isVteRecent = document.getElementById('war_vte_recent')?.checked;
+                const isVteSevere = document.getElementById('war_vte_severe')?.checked;
 
-                if (isMechValve || isAfStroke || isVte) {
-                    advice += `<br><span style="color:#008CBA"><strong>Need Bridging:</strong> แนะนำให้ Bridge ด้วย LMWH/UFH (ความเสี่ยงลิ่มเลือดสูง)</span>`;
+                const needBridging = isMechMitral || isMechAorticOld || isMechStroke || 
+                                     isAfHigh || isAfStroke || isAfRheum || 
+                                     isVteRecent || isVteSevere;
+
+                if (needBridging) {
                     styleClass = "rec-bridge";
+                    advice += `<br><strong>⚠️ Bridging Required:</strong> ผู้ป่วยมีความเสี่ยงลิ่มเลือดสูง (High Thrombotic Risk)`;
+                    
+                    // --- Generate Bridging Regimen (New!) ---
+                    bridgingContent = generateBridgingRegimen(crcl, bleedRisk);
                 } else {
-                    advice += `<br><small>ไม่ต้อง Bridging (ความเสี่ยงลิ่มเลือดต่ำ/ปานกลาง)</small>`;
+                    advice += `<br><small class="text-muted">✅ ไม่ต้อง Bridging (Low/Moderate Thrombotic Risk)</small>`;
                 }
             }
         }
         
-        // --- DOACs ---
+        // --- B. DOACs Logic ---
         else if (drug.category === 'doac') {
             let stopDays = 0;
             
-            // Dabigatran Logic
+            // Dabigatran Logic (1-2-2-4 rule)
             if (drug.id === 'dabigatran') {
                 if (crcl >= 50) stopDays = (bleedRisk === 'low-mod') ? 1 : 2;
                 else stopDays = (bleedRisk === 'low-mod') ? 2 : 4;
                 
                 if (crcl < 30) advice = `<strong>${drug.name}:</strong> ⚠️ Contraindicated (ปรึกษาแพทย์เฉพาะทาง) CrCl ต่ำมาก`;
             } 
-            // Other DOACs
+            // Other DOACs Logic (1-2 rule)
             else {
                 stopDays = (bleedRisk === 'low-mod') ? 1 : 2;
-                if (bleedRisk === 'neuro-spine') stopDays = 3; // Conservative for high risk
+                if (bleedRisk === 'neuro-spine') stopDays = 3; // Safety margin
             }
 
-            if (!advice) { // If not overridden
+            if (!advice) { 
                 if (bleedRisk === 'minimal') {
                      advice = `<strong>${drug.name}:</strong> พิจารณาไม่หยุดยา (งดมื้อเช้าวันผ่าตัด) หรือหยุด 1 วัน`;
                      styleClass = "rec-continue";
                 } else {
                      advice = `<strong>${drug.name}:</strong> หยุดยา ${stopDays} วันก่อนผ่าตัด (งด Bridging)`;
+                     if (crcl < 30) advice += ` <br>⚠️ ระวัง: ผู้ป่วยไตเสื่อมมาก อาจต้องหยุดนานกว่านี้`;
                 }
             }
         }
 
-        // --- Antiplatelets ---
+        // --- C. ACEI / ARB (New AHA 2024) ---
+        else if (drug.category === 'raas_inhibitor') {
+            const indication = document.getElementById('raas_indication')?.value;
+            if (indication === 'hf') {
+                advice = `<strong>${drug.name}:</strong> <span style="color:green">ให้ยาต่อ (Continue)</span> <br><small>สำหรับ HFrEF ไม่ควรหยุดยา</small>`;
+                styleClass = "rec-continue";
+            } else {
+                advice = `<strong>${drug.name}:</strong> <span style="color:orange">หยุดยา 24 ชม. ก่อนผ่าตัด</span> <br><small>ป้องกันภาวะความดันตกขณะผ่าตัด (Intraop Hypotension)</small>`;
+                styleClass = "rec-stop"; // Use warning color/style
+            }
+            advice += `<br><small>เริ่มยาใหม่เมื่อความดันคงที่ (post-op day 2)</small>`;
+        }
+
+        // --- D. Beta-blockers (New AHA 2024) ---
+        else if (drug.category === 'betablocker') {
+            advice = `<strong>${drug.name}:</strong> <span style="color:green">ให้ยาต่อ (Continue)</span> ห้ามหยุดทันที`;
+            advice += `<br><small>⚠️ ข้อห้าม: ห้ามเริ่มยา Beta-blocker ขนาดสูงในวันผ่าตัด (Start > 1 สัปดาห์ก่อนผ่า)</small>`;
+            styleClass = "rec-continue";
+        }
+
+        // --- E. Diuretics ---
+        else if (drug.category === 'diuretic') {
+            advice = `<strong>${drug.name}:</strong> หยุดยาเช้าวันผ่าตัด (Hold on morning of surgery)`;
+            styleClass = "rec-stop";
+        }
+
+        // --- F. Antiplatelets ---
         else if (drug.category === 'antiplatelet') {
             if (drug.id === 'aspirin') {
-                if (bleedRisk === 'neuro-spine' || bleedRisk === 'high') { // High bleed risk defined for ASA
-                    advice = `<strong>${drug.name}:</strong> หยุดยา 7 วันก่อนผ่าตัด (High/Neuro Bleeding Risk)`;
+                if (bleedRisk === 'neuro-spine') {
+                    advice = `<strong>${drug.name}:</strong> หยุดยา 7 วันก่อนผ่าตัด (High/Neuro Risk)`;
                 } else {
-                    advice = `<strong>${drug.name}:</strong> ไม่ต้องหยุดยา (Continue) <br><small>Ischemic risk มักสูงกว่า Bleeding risk</small>`;
+                    advice = `<strong>${drug.name}:</strong> <span style="color:green">ไม่ต้องหยุดยา (Continue)</span>`;
                     styleClass = "rec-continue";
                 }
             } else {
                 // P2Y12
                 let days = 5;
-                if (drug.id === 'ticagrelor') days = 3; // to 5
+                if (drug.id === 'ticagrelor') days = 3; 
                 if (drug.id === 'prasugrel') days = 7;
+                if (drug.id === 'cilostazol') days = 3; 
                 advice = `<strong>${drug.name}:</strong> หยุดยา ${days} วันก่อนผ่าตัด`;
             }
 
-            // Stent Check Alert
+            // Stent Check
             const stentStatus = document.getElementById('stent_status')?.value;
             if (stentStatus === 'yes') {
-                 // Simple logic for Alert (Detailed logic needs date calculation)
-                 advice += `<br><div class="warning-box" style="margin-top:5px; background:#FFF0F0; padding:5px; border-radius:5px;">⚠️ <strong>Stent Alert:</strong> ผู้ป่วยมีประวัติใส่ Stent < 1 ปี โปรดระวัง! หากหยุดยา Antiplatelet เสี่ยง Stent Thrombosis สูงมาก (Consult Cardio)</div>`;
+                 advice += `<br><div class="warning-box" style="margin-top:5px; background:#FFF0F0; padding:10px; border:1px solid red; border-radius:5px;">
+                 <strong>🚨 Stent Alert:</strong> ผู้ป่วยเพิ่งใส่ Stent < 1 ปี<br>
+                 - หากหยุด Antiplatelet เสี่ยง Stent Thrombosis สูงมาก<br>
+                 - โปรดปรึกษา Cardiologist ก่อนหยุดยา</div>`;
             }
         }
 
-        // --- SGLT2i ---
+        // --- G. GLP-1 & SGLT2 ---
         else if (drug.category === 'sglt2') {
             advice = `<strong>${drug.name}:</strong> หยุดยา 3-4 วันก่อนผ่าตัด <br><small>ระวัง Euglycemic DKA</small>`;
         }
-
-        // --- GLP-1 Weekly ---
         else if (drug.category === 'glp1_weekly') {
             advice = `<strong>${drug.name}:</strong> หยุดยา 1 สัปดาห์ก่อนผ่าตัด`;
-            
+            // Check Last Dose logic... (Same as before)
             const lastDoseStr = document.getElementById('glp1_last_date')?.value;
             if (lastDoseStr && surgeryDate) {
-                const lastDose = new Date(lastDoseStr);
-                const diffTime = Math.abs(surgeryDate - lastDose);
+                const diffTime = Math.abs(surgeryDate - new Date(lastDoseStr));
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-                
                 if (diffDays < 7) {
-                    advice += `<br><span style="color:red">⚠️ <strong>Full Stomach Risk:</strong> ยามีฤทธิ์ค้าง (หยุดไม่ครบ 7 วัน) แจ้งวิสัญญีแพทย์เพื่อทำ Gastric Ultrasound หรือพิจารณาเลื่อนผ่าตัด</span>`;
-                } else {
-                     advice += `<br><span style="color:green">✅ ระยะเวลาหยุดยาปลอดภัย (>7 วัน)</span>`;
+                    advice += `<br><span style="color:red">⚠️ <strong>Full Stomach Risk:</strong> ยาหยุดไม่ครบ 7 วัน แจ้งวิสัญญีแพทย์ (Ultrasound/RSI)</span>`;
                 }
             }
         }
-        
-         // --- GLP-1 Daily ---
-        else if (drug.category === 'glp1_daily') {
-            advice = `<strong>${drug.name}:</strong> หยุดยาเช้าวันผ่าตัด (Hold on day of surgery)`;
-        }
-
-        // --- General Meds ---
-        else if (drug.id === 'metformin') {
-             advice = `<strong>${drug.name}:</strong> หยุดยาเช้าวันผ่าตัด (หรือ 24 ชม. ถ้าฉีดสี/ไตวาย)`;
+        else if (drug.category === 'glp1_daily' || drug.id === 'metformin' || drug.id === 'sulfonylurea') {
+            advice = `<strong>${drug.name}:</strong> หยุดยาเช้าวันผ่าตัด`;
         }
 
         // Add to result block
-        recommendations += `<div class="recommendation-box ${styleClass}">${advice}</div>`;
+        recommendations += `<div class="recommendation-box ${styleClass}">
+            ${advice}
+            ${bridgingContent} 
+        </div>`;
     });
 
     if (recommendations === "") {
-        recommendations = "<p>ยังไม่ได้เลือกยาที่มีความเสี่ยง หรือ ยาที่เลือกไม่มีข้อห้ามหยุดยาพิเศษ (ให้พิจารณาตามมาตรฐาน รพ.)</p>";
+        recommendations = "<p class='text-center'>ไม่มีรายการยาที่ต้องหยุดเป็นพิเศษ หรือ ไม่ได้เลือกยา</p>";
     }
 
     resultDiv.innerHTML = recommendations;
     resultSection.classList.remove('hidden');
     
-    // Scroll to results
+    // Show Summary Image
+    const summaryImg = document.getElementById('summary-timeline-img');
+    if(summaryImg) summaryImg.src = "images/summary_timeline.png";
+
     resultSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// --- Bridging Regimen Generator Function (Updated) ---
+function generateBridgingRegimen(crcl, bleedRisk) {
+    let regimen = "";
+    let lwhmDose = "";
+    
+    // 1. Calculate Dose based on Renal Function
+    if (crcl >= 30) {
+        lwhmDose = "<strong>Enoxaparin (LMWH):</strong> 1 mg/kg SC ทุก 12 ชม. (BID) <br><em>หรือ</em> 1.5 mg/kg SC วันละครั้ง (OD)";
+    } else {
+        lwhmDose = "<strong>Enoxaparin (LMWH):</strong> 1 mg/kg SC วันละครั้ง (OD) <br><em>(สำหรับ CrCl < 30)</em> <br>⚠️ หรือพิจารณาใช้ <strong>UFH IV drip</strong> แทน";
+    }
+
+    // 2. Pre-op Stopping Time
+    let stopPreOp = `
+        <ul>
+            <li><strong>เริ่ม Bridging:</strong> เมื่อ INR ต่ำกว่าเกณฑ์ (มักจะ 2 วันหลังหยุด Warfarin)</li>
+            <li><strong>หยุด LMWH:</strong> 24 ชม. ก่อนผ่าตัด (เข็มสุดท้ายให้แค่ครึ่งโดสในตอนเช้าวันก่อนผ่า)</li>
+            <li><strong>หยุด UFH IV:</strong> 4-6 ชม. ก่อนผ่าตัด</li>
+        </ul>`;
+
+    // 3. Post-op Resumption Time
+    let startPostOp = "";
+    if (bleedRisk === 'high' || bleedRisk === 'neuro-spine') {
+        startPostOp = "48-72 ชม. หลังผ่าตัด (เมื่อแน่ใจว่าเลือดหยุดดีแล้ว)";
+    } else {
+        startPostOp = "24 ชม. หลังผ่าตัด";
+    }
+
+    regimen = `
+        <div style="margin-top:10px; background-color: #f0faff; padding:10px; border-radius:5px; border:1px dashed #008CBA;">
+            <h5 style="margin:0; color:#005580;"><i class="fa-solid fa-syringe"></i> คำแนะนำการ Bridging (Heparin)</h5>
+            <p style="margin-bottom:5px;">${lwhmDose}</p>
+            <small>
+                ${stopPreOp}
+                <strong>เริ่มยาหลังผ่าตัด:</strong> ${startPostOp}
+            </small>
+        </div>
+    `;
+    return regimen;
 }
