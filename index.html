@@ -1,0 +1,79 @@
+
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ปฏิทินเตรียมยาน้ำผลิต</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <meta name="theme-color" content="#fff7d6">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="left"><h1>ปฏิทินเตรียมยาน้ำผลิต</h1></div>
+  <div class="right">
+    <button id="todayBtn" class="btn">วันนี้</button>
+    <button id="printBtn" class="btn">ปริ้นใบผลิตวันนี้</button>
+    <button id="flushBtn" class="btn ghost">ปริ้นสติกเกอร์</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="cal card">
+    <div class="cal-header">
+      <div class="cal-nav">
+        <button id="prevMonth" class="btn nav" aria-label="เดือนก่อนหน้า">«</button>
+        <div id="monthTitle" class="title" title="คลิกเพื่อกลับไปเดือนปัจจุบัน"></div>
+        <button id="nextMonth" class="btn nav" aria-label="เดือนถัดไป">»</button>
+      </div>
+      <div class="weekday" aria-hidden="true">
+        <span>จ</span><span>อ</span><span>พ</span><span>พฤ</span><span>ศ</span><span>ส</span><span>อา</span>
+      </div>
+    </div>
+    <div id="calGrid" class="grid" role="grid" aria-label="ปฏิทิน"></div>
+  </section>
+
+  <section class="panel">
+    <div class="card">
+      <h2 id="panelTitle">รายการเตรียมยา: -</h2>
+      <form id="addForm" class="form" autocomplete="off">
+        <div class="field"><label>วันที่</label><input type="date" id="dateInput" class="input pastel" required></div>
+        <div class="field"><label>ชื่อยา</label><select id="drugSelect" class="input pastel" required><option value="" selected disabled>เลือกชื่อยา</option></select></div>
+        <div class="field"><label>ความแรง</label><select id="strengthSelect" class="input pastel" required><option value="" selected disabled>เลือกความแรงของยานี้</option></select></div>
+        <div class="field"><label>จำนวนขวด</label><input type="number" id="bottlesInput" class="input pastel" min="1" value="1" required></div>
+        <div class="actions"><button type="submit" class="btn">บันทึก</button></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>รายการเตรียมยาของวัน</h3>
+      <div id="dayLoading" class="loading" hidden>กำลังโหลด…</div>
+      <table id="planTable" class="table"><thead><tr><th>ยา</th><th>ความแรง</th><th>ขวด</th><th></th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <div class="card">
+      <h3>สรุปสำหรับบุคลากร (รวมวัตถุดิบทั้งหมด)</h3>
+      <div id="sumLoading" class="loading" hidden>กำลังคำนวณ…</div>
+      <div class="grid2">
+        <div>
+          <h4>สรุปจำนวนขวด</h4>
+          <table id="tblDrugs" class="table"><thead><tr><th>ชื่อยา</th><th>ความแรง</th><th>ขวดรวม</th></tr></thead><tbody></tbody></table>
+        </div>
+        <div>
+          <h4>สรุปวัตถุดิบ</h4>
+          <table id="tblMats" class="table"><thead><tr><th>วัตถุดิบ/เม็ดยา</th><th>หน่วย</th><th>รวม</th></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+      <div id="diag" class="muted small"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">โรงพยาบาลนพรัตนราชธานี • ข้อมูลเก็บใน Google Sheet</footer>
+<script>const GAS_BASE='https://script.google.com/macros/s/AKfycbyyuxt4M5vC2NINYvawjd0zB5km0SrzvCqZL1PxENgqB3sDH8krJDJvTknmyL5_zBHr2g/exec';</script>
+<script src="app.js"></script>
+</body>
+</html>
