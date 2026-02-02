@@ -283,4 +283,58 @@ label {
 .text-muted {
     color: #6c757d;
 }
+/* --- Image Styling Update (Center & Expand) --- */
+.image-container {
+    display: flex;             /* ใช้ Flexbox จัดตำแหน่ง */
+    justify-content: center;   /* จัดกึ่งกลางแนวนอน */
+    align-items: center;       /* จัดกึ่งกลางแนวตั้ง */
+    width: 100%;               /* ความกว้างคอนเทนเนอร์ 100% */
+    margin: 15px 0;            /* เว้นระยะบนล่าง */
+    background-color: #fafafa; /* ใส่พื้นหลังจางๆ ให้ดูเป็นสัดส่วน */
+    border-radius: 8px;
+    padding: 5px;              /* ระยะห่างจากขอบเล็กน้อย */
+}
+
+.image-container img {
+    width: 100% !important;     /* บังคับขยายเต็ม 100% ของพื้นที่ */
+    max-width: 100% !important; /* ลบข้อจำกัดขนาดเดิมออก */
+    height: auto;               /* รักษาอัตราส่วนภาพ */
+    display: block;             /* แก้บั๊กขอบล่างของรูปภาพ */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* เงาบางๆ ให้รูปลอยเด่น */
+    cursor: zoom-in;            /* เปลี่ยนเมาส์เป็นแว่นขยาย (สื่อว่ากดดูได้) */
+}
+
+/* เพิ่ม Modal สำหรับกดดูภาพขยายใหญ่ (Optional) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 5px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
