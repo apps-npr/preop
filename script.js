@@ -158,8 +158,11 @@ function checkSpecificQuestions() {
                 <div class="checkbox-group">
                     <label style="font-weight:bold; color:#d9534f;">
                         Atrial Fibrillation (AF) 
-                        <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('tip-af')" title="รายละเอียด CHA2DS2-VASc"></i>
+                        <button class="btn-xs" onclick="openChadModal()" style="margin-left:10px; background:#17a2b8; color:white; border:none; padding:2px 8px; border-radius:10px; cursor:pointer; font-size:0.8rem;">
+                            <i class="fa-solid fa-calculator"></i> คำนวณ CHA2DS2-VASc
+                        </button>
                     </label>
+                    <label><input type="checkbox" id="war_af_high"> CHA2DS2-VASc score ≥ 7 (คำนวณแล้ว)</label><br>
                     <div id="tip-af" class="info-box hidden small-text" style="background:#fff3cd;">
                         <strong>High Risk Features:</strong><br>
                         - CHA2DS2-VASc ≥ 7<br>
@@ -543,4 +546,58 @@ function openModal(src) {
 
 function closeModal() {
     document.getElementById('imageModal').style.display = "none";
+}
+// --- CHA2DS2-VASc Calculator Logic ---
+
+function openChadModal() {
+    document.getElementById('chadModal').style.display = 'flex';
+    calculateChad(); // Reset/Init calculation
+}
+
+function closeChadModal() {
+    document.getElementById('chadModal').style.display = 'none';
+}
+
+// Add event listeners to all inputs in modal for real-time calculation
+document.querySelectorAll('#chadModal input, #chadModal select').forEach(input => {
+    input.addEventListener('change', calculateChad);
+});
+
+function calculateChad() {
+    let score = 0;
+    if(document.getElementById('c_chf').checked) score += 1;
+    if(document.getElementById('c_ht').checked) score += 1;
+    if(document.getElementById('c_dm').checked) score += 1;
+    if(document.getElementById('c_stroke').checked) score += 2;
+    if(document.getElementById('c_vasc').checked) score += 1;
+    
+    score += parseInt(document.getElementById('c_age').value);
+    score += parseInt(document.getElementById('c_sex').value);
+
+    document.getElementById('chadScoreTotal').innerText = score;
+    
+    const adviceText = document.getElementById('chadAdvice');
+    if (score >= 7) {
+        adviceText.innerHTML = `<span style="color:red; font-weight:bold;">High Risk (Score ${score})</span> -> ต้อง Bridge!`;
+    } else {
+        adviceText.innerHTML = `<span style="color:green;">Low/Moderate Risk (Score ${score})</span> -> อาจไม่ต้อง Bridge`;
+    }
+}
+
+function applyChadScore() {
+    const score = parseInt(document.getElementById('chadScoreTotal').innerText);
+    const checkbox = document.getElementById('war_af_high');
+    
+    if (score >= 7) {
+        checkbox.checked = true;
+        // Highlight ให้รู้ว่าถูกเลือกแล้ว
+        checkbox.parentElement.style.backgroundColor = "#fff3cd";
+        checkbox.parentElement.style.padding = "2px 5px";
+        checkbox.parentElement.style.borderRadius = "3px";
+    } else {
+        checkbox.checked = false;
+        checkbox.parentElement.style.backgroundColor = "transparent";
+    }
+    
+    closeChadModal();
 }
