@@ -185,7 +185,7 @@ function checkSpecificQuestions() {
                 </div>
                 
                 <div class="image-container mt-2">
-                   <img src="thrombotic_risk.png" alt="ตารางความเสี่ยง" style="width:100%; max-width:400px; border-radius:5px;">
+                   <img src="thrombotic_risk.jpg" alt="ตารางความเสี่ยง" style="width:100%; max-width:400px; border-radius:5px;">
                 </div>
             </div>
         `;
