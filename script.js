@@ -140,9 +140,12 @@ function checkSpecificQuestions() {
     container.innerHTML = '';
     let hasQuestions = false;
 
-    // 1. Warfarin -> Bridging Risk
+// 1. Warfarin -> Bridging Risk
     if (selectedDrugs.find(d => d.id === 'warfarin')) {
         hasQuestions = true;
+        // ส่วนของรูปภาพอ้างอิง
+        const refImage = `<div class="image-container mt-2"><img src="images/ref_warfarin.jpg" onerror="this.style.display='none'" onclick="openModal(this.src)" alt="Warfarin Management"></div>`;
+
         const html = `
             <div class="form-group highlight-box">
                 <h4><i class="fa-solid fa-heart-crack"></i> Warfarin: Thrombotic Risk Assessment</h4>
@@ -155,14 +158,16 @@ function checkSpecificQuestions() {
                     <label><input type="checkbox" id="war_mech_stroke"> เคยมี Stroke/TIA ภายใน 6 เดือน</label>
                 </div>
                 <hr>
+                
                 <div class="checkbox-group">
                     <label style="font-weight:bold; color:#d9534f;">
                         Atrial Fibrillation (AF) 
-                        <button class="btn-xs" onclick="openChadModal()" style="margin-left:10px; background:#17a2b8; color:white; border:none; padding:2px 8px; border-radius:10px; cursor:pointer; font-size:0.8rem;">
-                            <i class="fa-solid fa-calculator"></i> คำนวณ CHA2DS2-VASc
+                        <button class="btn-xs" onclick="openChadModal()" style="margin-left:5px; background:#17a2b8; color:white; border:none; padding:2px 8px; border-radius:10px; cursor:pointer; font-size:0.8rem;">
+                            <i class="fa-solid fa-calculator"></i> คำนวณ
                         </button>
+                        <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('tip-af')" title="รายละเอียด CHA2DS2-VASc"></i>
                     </label>
-                    <label><input type="checkbox" id="war_af_high"> CHA2DS2-VASc score ≥ 7 (คำนวณแล้ว)</label><br>
+                    
                     <div id="tip-af" class="info-box hidden small-text" style="background:#fff3cd;">
                         <strong>High Risk Features:</strong><br>
                         - CHA2DS2-VASc ≥ 7<br>
@@ -174,6 +179,7 @@ function checkSpecificQuestions() {
                     <label><input type="checkbox" id="war_af_rheumatic"> เป็น Rheumatic Heart Disease</label>
                 </div>
                 <hr>
+
                 <div class="checkbox-group">
                     <label style="font-weight:bold; color:#d9534f;">
                         VTE (DVT/PE)
@@ -188,8 +194,9 @@ function checkSpecificQuestions() {
                 </div>
                 
                 <div class="image-container mt-2">
-                   <img src="thrombotic_risk.jpg" alt="ตารางความเสี่ยง" style="width:100%; max-width:400px; border-radius:5px;">
+                   <img src="images/table_bridging_risk.png" alt="ตารางความเสี่ยง" style="width:100%; max-width:400px; border-radius:5px;">
                 </div>
+                ${refImage}
             </div>
         `;
         container.innerHTML += html;
