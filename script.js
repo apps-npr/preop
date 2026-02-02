@@ -288,9 +288,13 @@ function processResults() {
         let advice = "";
         let styleClass = "rec-stop";
         let bridgingContent = ""; 
+        let refImage = ""; // ตัวแปรสำหรับเก็บรูปภาพเพิ่มเติม
 
         // --- A. Warfarin ---
         if (drug.id === 'warfarin') {
+            // ใส่รูปอ้างอิง Warfarin
+            refImage = `<div class="image-container mt-2"><img src="ref_warfarin.jpg" onerror="this.style.display='none'" style="width:100%; max-width:500px; border-radius:5px; border:1px solid #ddd;" alt="Warfarin Management"></div>`;
+
             if (bleedRisk === 'minimal') {
                 advice = `<strong>${drug.name}:</strong> <span style="color:green">ไม่ต้องหยุดยา (Continue)</span> <br><small>เช็ค INR ก่อนทำ 1-2 วัน (Target 2-3)</small>`;
                 styleClass = "rec-continue";
@@ -323,6 +327,9 @@ function processResults() {
         
         // --- B. DOACs ---
         else if (drug.category === 'doac') {
+            // ใส่รูปอ้างอิง DOAC
+            refImage = `<div class="image-container mt-2"><img src="ref_doac.png" onerror="this.style.display='none'" style="width:100%; max-width:500px; border-radius:5px; border:1px solid #ddd;" alt="DOAC Management"></div>`;
+
             let stopDays = 0;
             if (drug.id === 'dabigatran') {
                 if (crcl >= 50) stopDays = (bleedRisk === 'low-mod') ? 1 : 2;
@@ -370,6 +377,9 @@ function processResults() {
 
         // --- F. Antiplatelets ---
         else if (drug.category === 'antiplatelet') {
+            // ใส่รูปอ้างอิง Antiplatelet
+            refImage = `<div class="image-container mt-2"><img src="ref_antiplatelet.png" onerror="this.style.display='none'" style="width:100%; max-width:500px; border-radius:5px; border:1px solid #ddd;" alt="Antiplatelet Management"></div>`;
+
             if (drug.id === 'aspirin') {
                 if (bleedRisk === 'neuro-spine') {
                     advice = `<strong>${drug.name}:</strong> หยุดยา 7 วันก่อนผ่าตัด (Neuro/Eye Risk)`;
@@ -430,7 +440,8 @@ function processResults() {
 
         recommendations += `<div class="recommendation-box ${styleClass}">
             ${advice}
-            ${bridgingContent} 
+            ${bridgingContent}
+            ${refImage}
         </div>`;
     });
 
@@ -450,6 +461,11 @@ function processResults() {
 
     resultDiv.innerHTML = recommendations;
     resultSection.classList.remove('hidden');
+    
+    // Show Summary Image
+    const summaryImg = document.getElementById('summary-timeline-img');
+    if(summaryImg) summaryImg.src = "timeline.png";
+
     resultSection.scrollIntoView({ behavior: 'smooth' });
 }
 
