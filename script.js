@@ -293,7 +293,7 @@ function processResults() {
         // --- A. Warfarin ---
         if (drug.id === 'warfarin') {
             // ใส่รูปอ้างอิง Warfarin
-            refImage = `<div class="image-container mt-2"><img src="ref_warfarin.jpg" onerror="this.style.display='none'" style="width:100%; max-width:500px; border-radius:5px; border:1px solid #ddd;" alt="Warfarin Management"></div>`;
+            refImage = `<div class="image-container mt-2"><img src="ref_warfarin.jpg" onerror="this.style.display='none'" onclick="openModal(this.src)" alt="Warfarin Management"></div>`;
 
             if (bleedRisk === 'minimal') {
                 advice = `<strong>${drug.name}:</strong> <span style="color:green">ไม่ต้องหยุดยา (Continue)</span> <br><small>เช็ค INR ก่อนทำ 1-2 วัน (Target 2-3)</small>`;
@@ -328,7 +328,7 @@ function processResults() {
         // --- B. DOACs ---
         else if (drug.category === 'doac') {
             // ใส่รูปอ้างอิง DOAC
-            refImage = `<div class="image-container mt-2"><img src="ref_doac.png" onerror="this.style.display='none'" style="width:100%; max-width:500px; border-radius:5px; border:1px solid #ddd;" alt="DOAC Management"></div>`;
+            refImage = `<div class="image-container mt-2"><img src="ref_doac.png" onerror="this.style.display='none'" onclick="openModal(this.src)" alt="DOAC Management"></div>`;
 
             let stopDays = 0;
             if (drug.id === 'dabigatran') {
@@ -378,7 +378,7 @@ function processResults() {
         // --- F. Antiplatelets ---
         else if (drug.category === 'antiplatelet') {
             // ใส่รูปอ้างอิง Antiplatelet
-            refImage = `<div class="image-container mt-2"><img src="ref_antiplatelet.png" onerror="this.style.display='none'" style="width:100%; max-width:500px; border-radius:5px; border:1px solid #ddd;" alt="Antiplatelet Management"></div>`;
+            refImage = `<div class="image-container mt-2"><img src="ref_antiplatelet.png" onerror="this.style.display='none'" onclick="openModal(this.src)" alt="Antiplatelet Management"></div>`;
 
             if (drug.id === 'aspirin') {
                 if (bleedRisk === 'neuro-spine') {
@@ -520,4 +520,27 @@ function copyToClipboard() {
         msg.style.display = 'block';
         setTimeout(() => msg.style.display = 'none', 3000);
     });
+}
+// --- Modal Image Viewer (Click to Zoom) ---
+function openModal(src) {
+    // เช็คว่ามี Modal หรือยัง ถ้าไม่มีให้สร้างใหม่
+    let modal = document.getElementById('imageModal');
+    if (!modal) {
+        const modalHtml = `
+            <div id="imageModal" class="modal-overlay" onclick="closeModal()">
+                <span class="modal-close">&times;</span>
+                <img class="modal-content" id="img01">
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        modal = document.getElementById('imageModal');
+    }
+    
+    const modalImg = document.getElementById("img01");
+    modal.style.display = "flex"; // ใช้ Flex เพื่อจัดกึ่งกลาง
+    modalImg.src = src;
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
 }
