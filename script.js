@@ -678,7 +678,7 @@ function processResults() {
     
     // Show Summary Timeline Image
     const summaryImg = document.getElementById('summary-timeline-img');
-    if(summaryImg) summaryImg.src = "timeline.jpg";
+    if(summaryImg) summaryImg.src = "timeline.png";
 
     resultSection.scrollIntoView({ behavior: 'smooth' });
 }
