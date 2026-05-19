@@ -44,74 +44,92 @@
                 <h2>1. ข้อมูลการผ่าตัด (Surgery Info)</h2>
             </div>
             <div class="card-body">
+                
                 <div class="form-group">
                     <label>
-                        ความเสี่ยงเลือดออก (Bleeding Risk) 
-                        <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('bleed-risk-info')" title="คลิกเพื่อดูรายชื่อหัตถการ"></i>
+                        ค้นหาและเลือกหัตถการ (Search Procedure) 
+                        <i class="fa-solid fa-circle-info tooltip-icon" onclick="toggleInfo('bleed-risk-info')" title="คลิกเพื่อดูตารางความเสี่ยงทั้งหมด"></i>
                     </label>
-                    <select id="bleedingRisk" class="form-control">
-                        <option value="" disabled selected>-- เลือกความเสี่ยง (Select Category) --</option>
-                        <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก) , </option>
-                        <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง) , </option>
-                        <option value="high">High Risk (เสี่ยงสูง) , </option>
-                        <option value="neuro-spine">Neuroaxial/Critical Site (ห้ามเลือดออกเด็ดขาด) , </option>
+                    <div class="search-box">
+                        <input type="text" id="procedureSearch" placeholder="พิมพ์ชื่อหัตถการ... (เช่น ต้อกระจก, ส่องกล้อง, ถอนฟัน)" autocomplete="off">
+                        <i class="fa-solid fa-search search-icon"></i>
+                    </div>
+                    <div id="procedureListContainer" class="drug-list-container" style="display: none;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>ระดับความเสี่ยงเลือดออก (Bleeding Risk)</label>
+                    <select id="bleedingRisk" class="form-control" style="background-color: #f8f9fa;">
+                        <option value="" disabled selected>-- ค้นหาจากด้านบน หรือ เลือกความเสี่ยงเอง --</option>
+                        <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก)</option>
+                        <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง)</option>
+                        <option value="high">High Risk (เสี่ยงสูง)</option>
+                        <option value="neuro-spine">Neuroaxial/Critical Site (ห้ามเลือดออกเด็ดขาด)</option>
                     </select>
                     
                     <div id="bleed-risk-info" class="info-box hidden">
                         <h4><i class="fa-solid fa-list-ul"></i> Procedural Bleeding Risk Classification</h4>
-                        <p class="small-text">อ้างอิง: CHEST Guideline 2022</p>
+                        <p class="small-text">อ้างอิง: CHEST Guideline 2022 และ AHA/ACC 2024</p>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title minimal"><i class="fa-solid fa-check-circle"></i> Minimal Risk </h5>
+                            <h5 class="risk-title minimal"><i class="fa-solid fa-check-circle"></i> Minimal Risk (~0%)</h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดต้อกระจก">Cataract surgery </li>
-                                <li data-th="หัตถการทันตกรรมเล็กน้อย (ถอนฟัน 1-2 ซี่, ขูดหินปูน)">Minor dental procedures </li>
-                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก (ไฝ, ซีสต์)">Minor dermatologic excision </li>
-                                <li data-th="เจาะไขกระดูก/น้ำไขสันหลัง">Bone marrow aspiration / Lumbar puncture </li>
-                                <li data-th="ใส่เครื่องกระตุ้นหัวใจ">Pacemaker/ICD implant </li>
+                                <li data-th="ผ่าตัดต้อกระจก">Cataract surgery</li>
+                                <li data-th="ถอนฟัน 1-2 ซี่, ขูดหินปูน, รักษารากฟัน">Minor dental procedures</li>
+                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก, ไฝ, ซีสต์">Minor dermatologic excision</li>
+                                <li data-th="ใส่เครื่องกระตุ้นหัวใจ">Pacemaker / ICD implant</li>
+                                <li data-th="เจาะไขกระดูก">Bone marrow aspiration</li>
+                                <li data-th="เจาะน้ำในข้อ, ฉีดยาเข้าข้อ">Arthrocentesis / Joint injection</li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title low-mod"><i class="fa-solid fa-exclamation-circle"></i> Low/Moderate Risk </h5>
+                            <h5 class="risk-title low-mod"><i class="fa-solid fa-exclamation-circle"></i> Low/Moderate Risk (0-2%)</h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดถุงน้ำดี (ส่องกล้อง)">Laparoscopic Cholecystectomy </li>
-                                <li data-th="ผ่าตัดไส้เลื่อนขาหนีบ">Inguinal Hernia Repair </li>
-                                <li data-th="ผ่าตัดไส้ติ่ง">Appendectomy </li>
-                                <li data-th="ส่องกล้องข้อ (เข่า, ไหล่)">Arthroscopy </li>
-                                <li data-th="ส่องกล้องตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy </li>
+                                <li data-th="ผ่าตัดถุงน้ำดีส่องกล้อง">Laparoscopic Cholecystectomy</li>
+                                <li data-th="ผ่าตัดไส้เลื่อนขาหนีบ">Inguinal Hernia Repair</li>
+                                <li data-th="ผ่าตัดไส้ติ่ง">Appendectomy</li>
+                                <li data-th="ส่องกล้องข้อเข่า, ไหล่">Arthroscopy</li>
+                                <li data-th="ส่องกล้องกระเพาะ/ลำไส้ และตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy</li>
+                                <li data-th="ผ่าตัดเต้านม">Breast surgery</li>
+                                <li data-th="ผ่าตัดทางนรีเวช (มดลูก, รังไข่)">Major gynecologic surgery</li>
+                                <li data-th="ฉีดสีดูหลอดเลือดหัวใจ">Cardiac catheterization (Diagnostic)</li>
+                                <li data-th="เจาะชิ้นเนื้อต่อมลูกหมาก">Prostate biopsy</li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk </h5>
+                            <h5 class="risk-title high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk (≥ 2%)</h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดใหญ่ในช่องท้อง/มะเร็ง">Major Abdominal/Pelvic surgery (Cancer) </li>
-                                <li data-th="ผ่าตัดปอด/ช่องอก">Thoracic surgery </li>
-                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า/สะโพก">Major Orthopedic surgery (Hip/Knee) </li>
-                                <li data-th="ผ่าตัดหลอดเลือดใหญ่">Vascular surgery </li>
-                                <li data-th="ผ่าตัดทางเดินปัสสาวะ (ต่อมลูกหมาก, ไต)">Urological surgery (TURP, Nephrectomy) </li>
+                                <li data-th="ผ่าตัดใหญ่ช่องท้อง / ตัดลำไส้ / มะเร็ง">Major Abdominal surgery / Bowel resection</li>
+                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า / ข้อสะโพก">Major Orthopedic (Hip/Knee replacement)</li>
+                                <li data-th="ผ่าตัดปอด / ช่องอก">Thoracic surgery</li>
+                                <li data-th="ผ่าตัดหลอดเลือดใหญ่ (AAA repair)">Vascular surgery</li>
+                                <li data-th="ผ่าตัดทางเดินปัสสาวะใหญ่ (TURP, ตัดไต)">Major Urologic surgery (TURP, Nephrectomy)</li>
+                                <li data-th="เจาะชิ้นเนื้อตับหรือไต">Liver or Kidney biopsy</li>
+                                <li data-th="ผ่าตัดบายพาสหัวใจ">CABG / Open heart surgery</li>
+                                <li data-th="การผ่าตัดใดๆ ที่นานกว่า 45 นาที">Any major surgery > 45 minutes</li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title critical"><i class="fa-solid fa-skull-crossbones"></i> Neuroaxial / Critical Site </h5>
-                            <p class="small-text-red">*กลุ่มนี้เลือดออกเพียงเล็กน้อยอาจส่งผลรุนแรงถึงชีวิตหรือความพิการ </p>
+                            <h5 class="risk-title critical"><i class="fa-solid fa-skull-crossbones"></i> Neuroaxial / Critical Site</h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดสมอง / ในกะโหลกศีรษะ">Intracranial surgery </li>
-                                <li data-th="ผ่าตัดกระดูกสันหลัง / ไขสันหลัง">Spinal surgery / Epidural anesthesia </li>
-                                <li data-th="ผ่าตัดจอประสาทตา (ส่วนหลังลูกตา)">Posterior eye surgery (Vitrectomy) </li>
+                                <li data-th="ผ่าตัดสมอง / เปิดกะโหลกศีรษะ">Intracranial surgery / Craniotomy</li>
+                                <li data-th="ผ่าตัดกระดูกสันหลัง / ไขสันหลัง">Spinal surgery</li>
+                                <li data-th="บล็อกหลัง">Spinal / Epidural anesthesia</li>
+                                <li data-th="ผ่าตัดจอประสาทตา / ส่วนหลังลูกตา">Posterior eye surgery (Vitrectomy, Glaucoma)</li>
                             </ul>
                         </div>
                         
                         <div class="image-container">
-                            <img src="table_bleeding_risk.png" alt="ตารางความเสี่ยงเลือดออก" style="width:100%; border-radius:10px;">
+                            <img src="table_bleeding_risk.jpg" alt="ตารางความเสี่ยงเลือดออก" style="width:100%; border-radius:10px;" onclick="openModal(this.src)">
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH </span></label>
+                <div class="form-group mt-2">
+                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH</span></label>
                     <input type="number" id="renalFunction" class="form-control" placeholder="ระบุค่าเป็น ml/min (Default = 90)">
                 </div>
 
@@ -161,7 +179,7 @@
             <div class="card-body">
                 
                 <div class="image-container" style="margin-bottom: 20px;">
-                    <img id="summary-timeline-img" src="timeline.png" alt="Timeline การหยุดยา" style="width:100%; max-width:500px; border-radius:10px; display:block; margin:0 auto;">
+                    <img id="summary-timeline-img" src="timeline.jpg" alt="Timeline การหยุดยา" style="width:100%; max-width:500px; border-radius:10px; display:block; margin:0 auto;">
                 </div>
 
                 <div id="resultContent"></div>
@@ -177,14 +195,14 @@
                 <h3><i class="fa-solid fa-heart-pulse"></i> ข้อมูลเพิ่มเติม: การประเมินความเสี่ยงและส่งตรวจ (RCRI) <i class="fa-solid fa-chevron-down"></i></h3>
             </div>
             <div id="risk-advice-content" class="card-body hidden">
-                <p>การส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ) [cite: 15]</p>
+                <p>การส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ)</p>
                 <ul>
-                    <li><strong>RCRI 0-1 (Low Risk):</strong> ความเสี่ยงในการเกิดผลลัพธ์ไม่พึงประสงค์ <1% อนุญาตให้ผ่าตัดได้โดยไม่ต้องส่งตรวจประเมินทางหัวใจเพิ่ม [cite: 15]</li>
-                    <li><strong>RCRI ≥ 2 (High Risk):</strong> ความเสี่ยง ≥7% หากสมรรถนะ <4 METs ควรส่งตรวจ NT-proBNP หรือ BNP ก่อนผ่าตัด [cite: 15]</li>
-                    <li><strong>Post-op Monitoring:</strong> หากเจาะ Lab ผิดปกติ (NT-proBNP >300 ng/L, BNP >92 ng/L) ให้เฝ้าระวัง EKG และเจาะ Troponin ประเมิน MINS ทุกวันเป็นเวลา 48-72 ชม. [cite: 8], [cite: 9], [cite: 18]</li>
+                    <li><strong>RCRI 0-1 (Low Risk):</strong> ความเสี่ยงในการเกิดผลลัพธ์ไม่พึงประสงค์ <1% อนุญาตให้ผ่าตัดได้โดยไม่ต้องส่งตรวจประเมินทางหัวใจเพิ่ม</li>
+                    <li><strong>RCRI ≥ 2 (High Risk):</strong> ความเสี่ยง ≥7% หากสมรรถนะ <4 METs ควรส่งตรวจ NT-proBNP หรือ BNP ก่อนผ่าตัด</li>
+                    <li><strong>Post-op Monitoring:</strong> หากเจาะ Lab ผิดปกติ (NT-proBNP >300 ng/L, BNP >92 ng/L) ให้เฝ้าระวัง EKG และเจาะ Troponin ประเมิน MINS ทุกวันเป็นเวลา 48-72 ชม.,,</li>
                 </ul>
                 <div class="image-container">
-                     <img src="rcri.png" alt="ตาราง RCRI Score" style="width:100%; max-width:400px;">
+                     <img src="rcri.jpg" alt="ตาราง RCRI Score" style="width:100%; max-width:400px;" onclick="openModal(this.src)">
                 </div>
             </div>
         </section>
@@ -202,21 +220,21 @@
                 <span class="modal-close-btn" onclick="closeChadModal()">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="chad-item"><label><input type="checkbox" id="c_chf" value="1"> <strong>C</strong>ongestive Heart Failure (+1) [cite: 23]</label></div>
-                <div class="chad-item"><label><input type="checkbox" id="c_ht" value="1"> <strong>H</strong>ypertension (+1) [cite: 23]</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_chf" value="1"> <strong>C</strong>ongestive Heart Failure (+1)</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_ht" value="1"> <strong>H</strong>ypertension (+1)</label></div>
                 <div class="chad-item">
-                    <label><strong>A</strong>ge (อายุ)[cite: 23]:</label>
+                    <label><strong>A</strong>ge (อายุ):</label>
                     <select id="c_age" class="form-control-sm">
                         <option value="0">< 65 ปี (0)</option>
                         <option value="1">65 - 74 ปี (+1)</option>
                         <option value="2">≥ 75 ปี (+2)</option>
                     </select>
                 </div>
-                <div class="chad-item"><label><input type="checkbox" id="c_dm" value="1"> <strong>D</strong>iabetes Mellitus (+1) [cite: 23]</label></div>
-                <div class="chad-item"><label><input type="checkbox" id="c_stroke" value="2"> <strong>S</strong>troke/TIA/Thromboembolism (+2) [cite: 23]</label></div>
-                <div class="chad-item"><label><input type="checkbox" id="c_vasc" value="1"> <strong>V</strong>ascular Disease (MI, PAD) (+1) [cite: 23]</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_dm" value="1"> <strong>D</strong>iabetes Mellitus (+1)</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_stroke" value="2"> <strong>S</strong>troke/TIA/Thromboembolism (+2)</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_vasc" value="1"> <strong>V</strong>ascular Disease (MI, PAD) (+1)</label></div>
                 <div class="chad-item">
-                    <label><strong>S</strong>ex Category[cite: 23]:</label>
+                    <label><strong>S</strong>ex Category:</label>
                     <select id="c_sex" class="form-control-sm">
                         <option value="0">Male (0)</option>
                         <option value="1">Female (+1)</option>
