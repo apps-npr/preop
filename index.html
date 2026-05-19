@@ -25,12 +25,19 @@
                 <div class="checkbox-group">
                     <label><input type="checkbox"> กิน<strong>ยาละลายลิ่มเลือด</strong> (Warfarin/DOAC) หรือไม่?</label><br>
                     <label><input type="checkbox"> กิน<strong>ยาต้านเกล็ดเลือด</strong> (Aspirin/Plavix) หรือเคยทำบอลลูนหัวใจ?</label><br>
-                    <label><input type="checkbox"> กิน<strong>อาหารเสริม/สมุนไพร</strong> (น้ำมันปลา/แปะก๊วย/วิตามิน) ไหม?</label><br>
-                    <label><input type="checkbox"> กิน<strong>ยาแก้ปวด</strong> (กัดกระเพาะ/แก้ปวดข้อ) บ่อยๆ ไหม?</label><br>
-                    <label><input type="checkbox"> ฉีด<strong>ยาเบาหวานลดน้ำหนัก</strong> (ปากกาลดน้ำหนัก) ไหม?</label>
+                    <label><input type="checkbox"> กิน<strong>อาหารเสริม/สมุนไพร</strong> (น้ำมันปลา/แปะก๊วย/วิตามิน) ไหม? [cite: 2]</label><br>
+                    <label><input type="checkbox"> กิน<strong>ยาแก้ปวด</strong> (กัดกระเพาะ/แก้ปวดข้อ) บ่อยๆ ไหม? [cite: 22], [cite: 27]</label><br>
+                    <label><input type="checkbox"> ฉีด/กิน<strong>ยาลดน้ำหนัก/เบาหวาน</strong> (SGLT2i, GLP-1) ไหม? [cite: 36]</label><br>
+                    <label><input type="checkbox"> กิน<strong>ยาจิตเวช/พาร์กินสัน/ยากันชัก</strong> ไหม? </label><br>
+                    <label><input type="checkbox"> กิน/ฉีด<strong>ยากดภูมิ/รูมาตอยด์</strong> (DMARDs) ไหม? [cite: 46]</label><br>
+                    <label><input type="checkbox"> กิน<strong>ยาคุมกำเนิด/ฮอร์โมน</strong> ไหม?</label>
                 </div>
             </div>
         </section>
+
+        <div class="card-header secondary-header fade-in" style="background-color: #d1ecf1; border: 1px solid #bee5eb; border-radius: 10px; margin-bottom: 20px; cursor: pointer; padding: 15px;" onclick="openCapriniModal()">
+            <h3 style="color: #0c5460; margin:0; text-align: center;"><i class="fa-solid fa-calculator"></i> ประเมินความเสี่ยง VTE (Caprini Score) คลิก! </h3>
+        </div>
 
         <section id="step-1" class="card fade-in">
             <div class="card-header">
@@ -44,10 +51,10 @@
                     </label>
                     <select id="bleedingRisk" class="form-control">
                         <option value="" disabled selected>-- เลือกความเสี่ยง (Select Category) --</option>
-                        <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก)</option>
-                        <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง)</option>
-                        <option value="high">High Risk (เสี่ยงสูง)</option>
-                        <option value="neuro-spine">Neuroaxial/Critical Site (ห้ามเลือดออกเด็ดขาด)</option>
+                        <option value="minimal">Minimal Risk (เสี่ยงน้อยมาก) , </option>
+                        <option value="low-mod">Low/Moderate Risk (เสี่ยงปานกลาง) , </option>
+                        <option value="high">High Risk (เสี่ยงสูง) , </option>
+                        <option value="neuro-spine">Neuroaxial/Critical Site (ห้ามเลือดออกเด็ดขาด) , </option>
                     </select>
                     
                     <div id="bleed-risk-info" class="info-box hidden">
@@ -55,46 +62,45 @@
                         <p class="small-text">อ้างอิง: CHEST Guideline 2022</p>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title minimal"><i class="fa-solid fa-check-circle"></i> Minimal Risk</h5>
+                            <h5 class="risk-title minimal"><i class="fa-solid fa-check-circle"></i> Minimal Risk </h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดต้อกระจก">Cataract surgery</li>
-                                <li data-th="หัตถการทันตกรรมเล็กน้อย (ถอนฟัน 1-2 ซี่, ขูดหินปูน)">Minor dental procedures</li>
-                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก (ไฝ, ซีสต์)">Minor dermatologic excision</li>
-                                <li data-th="เจาะไขกระดูก/น้ำไขสันหลัง">Bone marrow aspiration / Lumbar puncture</li>
+                                <li data-th="ผ่าตัดต้อกระจก">Cataract surgery </li>
+                                <li data-th="หัตถการทันตกรรมเล็กน้อย (ถอนฟัน 1-2 ซี่, ขูดหินปูน)">Minor dental procedures </li>
+                                <li data-th="ผ่าตัดผิวหนังขนาดเล็ก (ไฝ, ซีสต์)">Minor dermatologic excision </li>
+                                <li data-th="เจาะไขกระดูก/น้ำไขสันหลัง">Bone marrow aspiration / Lumbar puncture </li>
+                                <li data-th="ใส่เครื่องกระตุ้นหัวใจ">Pacemaker/ICD implant </li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title low-mod"><i class="fa-solid fa-exclamation-circle"></i> Low/Moderate Risk</h5>
+                            <h5 class="risk-title low-mod"><i class="fa-solid fa-exclamation-circle"></i> Low/Moderate Risk </h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดถุงน้ำดี (ส่องกล้อง)">Laparoscopic Cholecystectomy</li>
-                                <li data-th="ผ่าตัดไส้เลื่อนขาหนีบ">Inguinal Hernia Repair</li>
-                                <li data-th="ผ่าตัดไส้ติ่ง">Appendectomy</li>
-                                <li data-th="ส่องกล้องข้อ (เข่า, ไหล่)">Arthroscopy</li>
-                                <li data-th="ส่องกล้องตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy</li>
-                                <li data-th="ฉีดสีหัวใจ">Coronary Angiography</li>
+                                <li data-th="ผ่าตัดถุงน้ำดี (ส่องกล้อง)">Laparoscopic Cholecystectomy </li>
+                                <li data-th="ผ่าตัดไส้เลื่อนขาหนีบ">Inguinal Hernia Repair </li>
+                                <li data-th="ผ่าตัดไส้ติ่ง">Appendectomy </li>
+                                <li data-th="ส่องกล้องข้อ (เข่า, ไหล่)">Arthroscopy </li>
+                                <li data-th="ส่องกล้องตัดชิ้นเนื้อ">Gastroscopy / Colonoscopy with biopsy </li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk</h5>
+                            <h5 class="risk-title high"><i class="fa-solid fa-triangle-exclamation"></i> High Risk </h5>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดใหญ่ในช่องท้อง/มะเร็ง">Major Abdominal/Pelvic surgery (Cancer)</li>
-                                <li data-th="ผ่าตัดปอด/ช่องอก">Thoracic surgery</li>
-                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า/สะโพก">Major Orthopedic surgery (Hip/Knee replacement)</li>
-                                <li data-th="ผ่าตัดหลอดเลือดใหญ่">Vascular surgery (AAA repair, Bypass)</li>
-                                <li data-th="ผ่าตัดทางเดินปัสสาวะ (ต่อมลูกหมาก, ไต)">Urological surgery (TURP, Nephrectomy)</li>
-                                <li data-th="เจาะชิ้นเนื้อตับหรือไต">Liver or Kidney biopsy</li>
+                                <li data-th="ผ่าตัดใหญ่ในช่องท้อง/มะเร็ง">Major Abdominal/Pelvic surgery (Cancer) </li>
+                                <li data-th="ผ่าตัดปอด/ช่องอก">Thoracic surgery </li>
+                                <li data-th="ผ่าตัดเปลี่ยนข้อเข่า/สะโพก">Major Orthopedic surgery (Hip/Knee) </li>
+                                <li data-th="ผ่าตัดหลอดเลือดใหญ่">Vascular surgery </li>
+                                <li data-th="ผ่าตัดทางเดินปัสสาวะ (ต่อมลูกหมาก, ไต)">Urological surgery (TURP, Nephrectomy) </li>
                             </ul>
                         </div>
 
                         <div class="risk-category-group">
-                            <h5 class="risk-title critical"><i class="fa-solid fa-skull-crossbones"></i> Neuroaxial / Critical Site</h5>
-                            <p class="small-text-red">*กลุ่มนี้เลือดออกเพียงเล็กน้อยอาจส่งผลรุนแรงถึงชีวิตหรือความพิการ</p>
+                            <h5 class="risk-title critical"><i class="fa-solid fa-skull-crossbones"></i> Neuroaxial / Critical Site </h5>
+                            <p class="small-text-red">*กลุ่มนี้เลือดออกเพียงเล็กน้อยอาจส่งผลรุนแรงถึงชีวิตหรือความพิการ </p>
                             <ul class="risk-list">
-                                <li data-th="ผ่าตัดสมอง / ในกะโหลกศีรษะ">Intracranial surgery</li>
-                                <li data-th="ผ่าตัดกระดูกสันหลัง / ไขสันหลัง">Spinal surgery / Epidural anesthesia</li>
-                                <li data-th="ผ่าตัดจอประสาทตา (ส่วนหลังลูกตา)">Posterior eye surgery (Vitrectomy)</li>
+                                <li data-th="ผ่าตัดสมอง / ในกะโหลกศีรษะ">Intracranial surgery </li>
+                                <li data-th="ผ่าตัดกระดูกสันหลัง / ไขสันหลัง">Spinal surgery / Epidural anesthesia </li>
+                                <li data-th="ผ่าตัดจอประสาทตา (ส่วนหลังลูกตา)">Posterior eye surgery (Vitrectomy) </li>
                             </ul>
                         </div>
                         
@@ -105,7 +111,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH</span></label>
+                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH </span></label>
                     <input type="number" id="renalFunction" class="form-control" placeholder="ระบุค่าเป็น ml/min (Default = 90)">
                 </div>
 
@@ -161,7 +167,7 @@
                 <div id="resultContent"></div>
 
                 <div class="disclaimer">
-                    <p><strong>หมายเหตุ:</strong> ผลลัพธ์จากการคำนวณเป็นเพียงคำแนะนำเบื้องต้นจาก Guideline (AHA 2024, CHEST 2022, SPAQI) การตัดสินใจสุดท้ายขึ้นอยู่กับดุลยพินิจของแพทย์เจ้าของไข้และศัลยแพทย์</p>
+                    <p><strong>หมายเหตุ:</strong> ผลลัพธ์จากการคำนวณเป็นเพียงคำแนะนำเบื้องต้นจาก Guideline (AHA 2024, CHEST 2022, ACR 2022) การตัดสินใจสุดท้ายขึ้นอยู่กับดุลยพินิจของแพทย์เจ้าของไข้และศัลยแพทย์ </p>
                 </div>
             </div>
         </section>
@@ -171,10 +177,11 @@
                 <h3><i class="fa-solid fa-heart-pulse"></i> ข้อมูลเพิ่มเติม: การประเมินความเสี่ยงและส่งตรวจ (RCRI) <i class="fa-solid fa-chevron-down"></i></h3>
             </div>
             <div id="risk-advice-content" class="card-body hidden">
-                <p>การส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ)</p>
+                <p>การส่งตรวจ Pre-op ตาม AHA/ACC 2024 (สำหรับการผ่าตัดที่ไม่ใช่หัวใจ) [cite: 15]</p>
                 <ul>
-                    <li><strong>ECG:</strong> ไม่แนะนำใน Low risk surgery / แนะนำในผู้ป่วยที่มีโรคหัวใจ หรือมีอาการเหนื่อยเจ็บหน้าอก</li>
-                    <li><strong>Lab (BNP/Troponin):</strong> พิจารณาเจาะในผู้ป่วยอายุ > 65 ปี หรือมี RCRI >= 1 ที่จะผ่าตัดความเสี่ยงสูง (Elevated Risk)</li>
+                    <li><strong>RCRI 0-1 (Low Risk):</strong> ความเสี่ยงในการเกิดผลลัพธ์ไม่พึงประสงค์ <1% อนุญาตให้ผ่าตัดได้โดยไม่ต้องส่งตรวจประเมินทางหัวใจเพิ่ม [cite: 15]</li>
+                    <li><strong>RCRI ≥ 2 (High Risk):</strong> ความเสี่ยง ≥7% หากสมรรถนะ <4 METs ควรส่งตรวจ NT-proBNP หรือ BNP ก่อนผ่าตัด [cite: 15]</li>
+                    <li><strong>Post-op Monitoring:</strong> หากเจาะ Lab ผิดปกติ (NT-proBNP >300 ng/L, BNP >92 ng/L) ให้เฝ้าระวัง EKG และเจาะ Troponin ประเมิน MINS ทุกวันเป็นเวลา 48-72 ชม. [cite: 8], [cite: 9], [cite: 18]</li>
                 </ul>
                 <div class="image-container">
                      <img src="rcri.png" alt="ตาราง RCRI Score" style="width:100%; max-width:400px;">
@@ -185,31 +192,31 @@
     </main>
 
     <footer>
-        <p>Developed for Pharmacists | Guidelines: AHA/ACC 2024, CHEST 2022, SPAQI</p>
+        <p>Developed for Pharmacists | Guidelines: AHA/ACC 2024, CHEST 2022, ACR 2022</p>
     </footer>
 
-<div id="chadModal" class="modal-overlay" style="display:none;">
+    <div id="chadModal" class="modal-overlay" style="display:none;">
         <div class="modal-content-card">
             <div class="modal-header">
                 <h3>🧮 CHA2DS2-VASc Calculator</h3>
                 <span class="modal-close-btn" onclick="closeChadModal()">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="chad-item"><label><input type="checkbox" id="c_chf" value="1"> <strong>C</strong>ongestive Heart Failure (+1)</label></div>
-                <div class="chad-item"><label><input type="checkbox" id="c_ht" value="1"> <strong>H</strong>ypertension (+1)</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_chf" value="1"> <strong>C</strong>ongestive Heart Failure (+1) [cite: 23]</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_ht" value="1"> <strong>H</strong>ypertension (+1) [cite: 23]</label></div>
                 <div class="chad-item">
-                    <label><strong>A</strong>ge (อายุ):</label>
+                    <label><strong>A</strong>ge (อายุ)[cite: 23]:</label>
                     <select id="c_age" class="form-control-sm">
                         <option value="0">< 65 ปี (0)</option>
                         <option value="1">65 - 74 ปี (+1)</option>
                         <option value="2">≥ 75 ปี (+2)</option>
                     </select>
                 </div>
-                <div class="chad-item"><label><input type="checkbox" id="c_dm" value="1"> <strong>D</strong>iabetes Mellitus (+1)</label></div>
-                <div class="chad-item"><label><input type="checkbox" id="c_stroke" value="2"> <strong>S</strong>troke/TIA/Thromboembolism (+2)</label></div>
-                <div class="chad-item"><label><input type="checkbox" id="c_vasc" value="1"> <strong>V</strong>ascular Disease (MI, PAD) (+1)</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_dm" value="1"> <strong>D</strong>iabetes Mellitus (+1) [cite: 23]</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_stroke" value="2"> <strong>S</strong>troke/TIA/Thromboembolism (+2) [cite: 23]</label></div>
+                <div class="chad-item"><label><input type="checkbox" id="c_vasc" value="1"> <strong>V</strong>ascular Disease (MI, PAD) (+1) [cite: 23]</label></div>
                 <div class="chad-item">
-                    <label><strong>S</strong>ex Category:</label>
+                    <label><strong>S</strong>ex Category[cite: 23]:</label>
                     <select id="c_sex" class="form-control-sm">
                         <option value="0">Male (0)</option>
                         <option value="1">Female (+1)</option>
@@ -227,6 +234,66 @@
             </div>
         </div>
     </div>
+
+    <div id="capriniModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content-card" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header" style="background-color: #17a2b8;">
+                <h3>🩸 Caprini VTE Risk Score </h3>
+                <span class="modal-close-btn" onclick="closeCapriniModal()">&times;</span>
+            </div>
+            <div class="modal-body" style="font-size: 0.9rem;">
+                <div class="form-group">
+                    <label style="color:#d9534f;"><strong>1 คะแนน </strong></label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" class="caprini-1"> อายุ 41-60 ปี </label><br>
+                        <label><input type="checkbox" class="caprini-1"> ผ่าตัดเล็ก (< 45 นาที) </label><br>
+                        <label><input type="checkbox" class="caprini-1"> BMI ≥ 25 </label><br>
+                        <label><input type="checkbox" class="caprini-1"> ขาบวม/เส้นเลือดขอด </label><br>
+                        <label><input type="checkbox" class="caprini-1"> ตั้งครรภ์/เพิ่งคลอด หรือ ประวัติแท้งบุตร </label><br>
+                        <label><input type="checkbox" class="caprini-1"> หัวใจล้มเหลว (CHF) / ปอดอักเสบ </label>
+                    </div>
+                </div>
+                <hr style="border-top: 1px dashed #ccc;">
+                <div class="form-group">
+                    <label style="color:#d9534f;"><strong>2 คะแนน </strong></label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" class="caprini-2"> อายุ 61-74 ปี </label><br>
+                        <label><input type="checkbox" class="caprini-2"> ผ่าตัดใหญ่ (> 45 นาที) </label><br>
+                        <label><input type="checkbox" class="caprini-2"> ผู้ป่วยติดเตียงที่ขยับไม่ได้ > 72 ชม. </label><br>
+                        <label><input type="checkbox" class="caprini-2"> ใส่เฝือกขารักษาบาดเจ็บ / ใส่ Central venous </label>
+                    </div>
+                </div>
+                <hr style="border-top: 1px dashed #ccc;">
+                <div class="form-group">
+                    <label style="color:#d9534f;"><strong>3 คะแนน </strong></label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" class="caprini-3"> อายุ ≥ 75 ปี </label><br>
+                        <label><input type="checkbox" class="caprini-3"> ประวัติ DVT/PE ส่วนตัวหรือครอบครัว </label><br>
+                        <label><input type="checkbox" class="caprini-3"> ตรวจพบความผิดปกติการแข็งตัวเลือด (Thrombophilia) </label>
+                    </div>
+                </div>
+                <hr style="border-top: 1px dashed #ccc;">
+                <div class="form-group">
+                    <label style="color:#d9534f;"><strong>5 คะแนน </strong></label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" class="caprini-5"> ผ่าตัดเปลี่ยนข้อเข่าหรือข้อสะโพก </label><br>
+                        <label><input type="checkbox" class="caprini-5"> กระดูกเชิงกรานหรือกระดูกต้นขาหัก </label><br>
+                        <label><input type="checkbox" class="caprini-5"> Stroke หรือ บาดเจ็บไขสันหลังทำให้เป็นอัมพาต </label><br>
+                        <label><input type="checkbox" class="caprini-5"> ภาวะบาดเจ็บรุนแรงหลายระบบ (Multiple trauma) </label>
+                    </div>
+                </div>
+                <hr>
+                <div class="chad-result text-center">
+                    Total Score: <span id="capriniScoreTotal" style="font-size:1.8rem; font-weight:bold; color:#17a2b8;">0</span>
+                </div>
+                <p id="capriniAdvice" class="small-text text-muted text-center">ความเสี่ยง: Low Risk</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" style="background-color: #17a2b8;" onclick="closeCapriniModal()">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
