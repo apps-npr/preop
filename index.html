@@ -45,6 +45,11 @@
             </div>
             <div class="card-body">
                 
+                <!-- เพิ่มรูป risk.png ด้านบน -->
+                <div class="image-container" style="margin-bottom: 15px;">
+                    <img src="risk.png" alt="ตารางความเสี่ยงรวม" style="width:100%; border-radius:10px;" onclick="openModal(this.src)" onerror="this.style.display='none'">
+                </div>
+
                 <div class="form-group">
                     <label>
                         ค้นหาและเลือกหัตถการ (Search Procedure) 
@@ -129,7 +134,7 @@
                 </div>
 
                 <div class="form-group mt-2">
-                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH</span></label>
+                    <label>ค่าการทำงานของไต (CrCl / eGFR) <span class="text-muted">*จำเป็นสำหรับ DOAC/LMWH </span></label>
                     <input type="number" id="renalFunction" class="form-control" placeholder="ระบุค่าเป็น ml/min (Default = 90)">
                 </div>
 
@@ -179,7 +184,7 @@
             <div class="card-body">
                 
                 <div class="image-container" style="margin-bottom: 20px;">
-                    <img id="summary-timeline-img" src="timeline.png" alt="Timeline การหยุดยา" style="width:100%; max-width:500px; border-radius:10px; display:block; margin:0 auto;">
+                    <img id="summary-timeline-img" src="timeline.png" alt="Timeline การหยุดยา" style="width:100%; max-width:500px; border-radius:10px; display:block; margin:0 auto;" onclick="openModal(this.src)">
                 </div>
 
                 <div id="resultContent"></div>
@@ -199,7 +204,7 @@
                 <ul>
                     <li><strong>RCRI 0-1 (Low Risk):</strong> ความเสี่ยงในการเกิดผลลัพธ์ไม่พึงประสงค์ <1% อนุญาตให้ผ่าตัดได้โดยไม่ต้องส่งตรวจประเมินทางหัวใจเพิ่ม</li>
                     <li><strong>RCRI ≥ 2 (High Risk):</strong> ความเสี่ยง ≥7% หากสมรรถนะ <4 METs ควรส่งตรวจ NT-proBNP หรือ BNP ก่อนผ่าตัด</li>
-                    <li><strong>Post-op Monitoring:</strong> หากเจาะ Lab ผิดปกติ (NT-proBNP >300 ng/L, BNP >92 ng/L) ให้เฝ้าระวัง EKG และเจาะ Troponin ประเมิน MINS ทุกวันเป็นเวลา 48-72 ชม.,,</li>
+                    <li><strong>Post-op Monitoring:</strong> หากเจาะ Lab ผิดปกติ (NT-proBNP >300 ng/L, BNP >92 ng/L) ให้เฝ้าระวัง EKG และเจาะ Troponin ประเมิน MINS ทุกวันเป็นเวลา 48-72 ชม.</li>
                 </ul>
                 <div class="image-container">
                      <img src="rcri.png" alt="ตาราง RCRI Score" style="width:100%; max-width:400px;" onclick="openModal(this.src)">
