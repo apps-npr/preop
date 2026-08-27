@@ -67,52 +67,67 @@ const drugDatabase = [
 // --- Database: รายการหัตถการ (Procedure Database - ฉบับละเอียด) ---
 const procedureDatabase = [
     // 🟢 Minimal Risk (~0% major bleed)
-    { name: "Cataract surgery / Ophthalmologic (ผ่าตัดต้อกระจก, ตา)", risk: "minimal", riskLabel: "Minimal Risk" },
-    { name: "Minor dental (ถอนฟัน, อุดฟัน, ขูดหินปูน, ทำฟันปลอม, รักษารากฟัน)", risk: "minimal", riskLabel: "Minimal Risk" },
-    { name: "Minor dermatologic excision (ตัดไฝ, หูด, มะเร็งผิวหนังขนาดเล็ก)[cite: 5]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Cataract surgery / Glaucoma intervention (ผ่าตัดต้อกระจก, ต้อหิน)[cite: 5],[cite: 12]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Minor dental 1-2 teeth / Periodontal / Implant / Endodontics (ถอนฟัน 1-2 ซี่, อุดฟัน, ขูดหินปูน, ทำฟันปลอม, รักษารากฟัน, ผ่าตัดเหงือก)[cite: 5],[cite: 12]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Minor dermatologic excision (ตัดไฝ, หูด, มะเร็งผิวหนังขนาดเล็ก, ผ่าตัดผิวหนังส่วนตื้น)[cite: 5],[cite: 9]", risk: "minimal", riskLabel: "Minimal Risk" },
     { name: "Pacemaker / ICD implant (ใส่เครื่องกระตุ้นหัวใจ)[cite: 5]", risk: "minimal", riskLabel: "Minimal Risk" },
-    { name: "Myringotomy tube placement (เจาะเยื่อแก้วหูใส่ท่อ)", risk: "minimal", riskLabel: "Minimal Risk" },
-    { name: "Vascular access / IV port / Central line (แทงเส้นเลือด, เปิดเส้นให้ยา)", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Myringotomy tube placement (เจาะเยื่อแก้วหูใส่ท่อ)[cite: 10]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Central venous catheter removal / Vascular access / IV port (ถอดสายสวนหลอดเลือดดำใหญ่, แทงเส้นเลือด)[cite: 10],[cite: 12]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Joint injections / Arthrocentesis (เจาะน้ำในข้อ, ฉีดยาเข้าข้อ)[cite: 9]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Lumbar puncture (เจาะน้ำไขสันหลัง)[cite: 10]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Incision of abscess (กรีดระบายหนอง)[cite: 12]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Endoscopy without surgery/biopsy (ส่องกล้องทางเดินอาหารแบบไม่ตัดชิ้นเนื้อ)[cite: 12]", risk: "minimal", riskLabel: "Minimal Risk" },
+    { name: "Imaging studies: MRI, CT (การตรวจทางภาพถ่ายรังสี)[cite: 10]", risk: "minimal", riskLabel: "Minimal Risk" },
 
     // 🟠 Low/Moderate Risk (0-2% major bleed)
     { name: "Arthroscopy (ส่องกล้องข้อเข่า, ข้อไหล่)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
     { name: "Cutaneous / Lymph node biopsy (ตัดชิ้นเนื้อผิวหนัง, ต่อมน้ำเหลือง)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Foot / Hand surgery (ผ่าตัดมือ, ผ่าตัดเท้า)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Coronary angiography - CAG (ฉีดสีดูหลอดเลือดหัวใจ)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Gastroscopy / Endoscopy + biopsy (ส่องกล้องกระเพาะอาหารและตัดชิ้นเนื้อ)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Colonoscopy + biopsy (ส่องกล้องลำไส้ใหญ่และตัดชิ้นเนื้อ)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Abdominal hysterectomy (ตัดมดลูกทางหน้าท้อง)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Laparoscopic Cholecystectomy (ผ่าตัดถุงน้ำดีผ่านกล้อง)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Abdominal / Inguinal hernia repair (ผ่าตัดไส้เลื่อนหน้าท้อง, ขาหนีบ)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "Hemorrhoidal surgery (ผ่าตัดริดสีดวงทวาร)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Foot / Hand surgery / Carpal tunnel repair (ผ่าตัดมือ, ผ่าตัดเท้า, ผ่าตัดพังผืดทับเส้นประสาทข้อมือ)[cite: 5],[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Coronary angiography / Non-coronary angiography (ฉีดสีดูหลอดเลือดหัวใจ หรือหลอดเลือดอื่นๆ)[cite: 5],[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Gastroscopy / Colonoscopy / Endoscopy + biopsy/tissue removal (ส่องกล้องกระเพาะอาหาร/ลำไส้ใหญ่ และตัดชิ้นเนื้อ)[cite: 5],[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Abdominal hysterectomy / D&C / Major gynecologic surgery (ตัดมดลูกทางหน้าท้อง, ขูดมดลูก, นรีเวช)[cite: 5],[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Laparoscopic Cholecystectomy / Open Cholecystectomy (ผ่าตัดถุงน้ำดี)[cite: 5],[cite: 9],[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Abdominal / Inguinal / Hiatal hernia repair (ผ่าตัดไส้เลื่อนหน้าท้อง, ขาหนีบ, กระบังลม)[cite: 5],[cite: 14]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Hemorrhoidal surgery (ผ่าตัดริดสีดวงทวาร)[cite: 5],[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
     { name: "Bronchoscopy + biopsy (ส่องกล้องหลอดลมและตัดชิ้นเนื้อ)[cite: 5]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
-    { name: "FESS / Endoscopic Sinus Surgery (ผ่าตัดไซนัสผ่านกล้อง)", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "FESS / Endoscopic Sinus Surgery (ผ่าตัดไซนัสผ่านกล้อง)[cite: 16]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Dental extraction ≥ 3 teeth (ถอนฟันตั้งแต่ 3 ซี่ขึ้นไป)[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Breast surgery (ผ่าตัดเต้านม)[cite: 14]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Thyroid / Endocrine surgery (ผ่าตัดต่อมไทรอยด์, ต่อมไร้ท่อ)[cite: 14]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Prostate / Bladder biopsy (เจาะชิ้นเนื้อต่อมลูกหมาก, กระเพาะปัสสาวะ)[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Hydrocele repair (ผ่าตัดถุงน้ำอัณฑะ)[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "EPS / RF ablation for SVT (จี้ไฟฟ้าหัวใจเต้นผิดจังหวะชนิดไม่ซับซ้อน)[cite: 12]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Peripheral arterial angioplasty / EVAR (ทำบอลลูนหลอดเลือดส่วนปลาย, ซ่อมหลอดเลือดโป่งพองผ่านสายสวน)[cite: 14]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
+    { name: "Splenectomy (ผ่าตัดม้าม)[cite: 14]", risk: "low-mod", riskLabel: "Low/Moderate Risk" },
 
     // 🔴 High Risk (>= 2% major bleed)
     { name: "Major surgery / Extensive tissue injury (ผ่าตัดใหญ่เนื้อเยื่อช้ำมาก)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Cancer surgery / Solid tumor (ผ่าตัดมะเร็งก้อนโต เช่น ปอด, ลำไส้, ตับอ่อน)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Major orthopedic / Joint replacement (ผ่าตัดเปลี่ยนข้อเข่า, สะโพก, ไหล่)[cite: 5],[cite: 9]", risk: "high", riskLabel: "High Risk" },
+    { name: "Cancer surgery / Solid tumor (ผ่าตัดมะเร็งก้อนโต เช่น ปอด, ลำไส้, ตับอ่อน, เต้านมแบบลุกลาม)[cite: 5],[cite: 12]", risk: "high", riskLabel: "High Risk" },
+    { name: "Major orthopedic / Joint replacement (ผ่าตัดเปลี่ยนข้อเข่า, สะโพก, ไหล่)[cite: 5],[cite: 9],[cite: 10]", risk: "high", riskLabel: "High Risk" },
     { name: "Reconstructive plastic surgery (ศัลยกรรมตกแต่งแก้ไข, ปลูกถ่ายเนื้อเยื่อ)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Major thoracic surgery (ผ่าตัดช่องอกใหญ่)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Urologic / GI anastomosis (ผ่าตัดทางเดินอาหาร/ปัสสาวะที่มีการต่อท่อ)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "TURP / Bladder resection (ขูดต่อมลูกหมากผ่านท่อปัสสาวะ, ตัดเนื้องอกกระเพาะปัสสาวะ)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Nephrectomy / Kidney biopsy (ตัดไต, เจาะชิ้นเนื้อไต)[cite: 5]", risk: "high", riskLabel: "High Risk" },
+    { name: "Major thoracic surgery / Pneumonectomy (ผ่าตัดช่องอกใหญ่, ตัดปอด)[cite: 5],[cite: 14]", risk: "high", riskLabel: "High Risk" },
+    { name: "Urologic / GI anastomosis / Oesophagectomy (ผ่าตัดทางเดินอาหาร/ปัสสาวะที่มีการต่อท่อ, ตัดหลอดอาหาร)[cite: 5],[cite: 14]", risk: "high", riskLabel: "High Risk" },
+    { name: "TURP / Bladder resection / Total cystectomy (ขูดต่อมลูกหมากผ่านท่อปัสสาวะ, ตัดกระเพาะปัสสาวะ)[cite: 5],[cite: 14]", risk: "high", riskLabel: "High Risk" },
+    { name: "Nephrectomy / Kidney biopsy (ตัดไต, เจาะชิ้นเนื้อไต)[cite: 5],[cite: 12]", risk: "high", riskLabel: "High Risk" },
     { name: "Colonic polyp resection (ส่องกล้องตัดติ่งเนื้อลำไส้ใหญ่)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Bowel resection / Subtotal colectomy (ตัดต่อลำไส้)[cite: 5],[cite: 9]", risk: "high", riskLabel: "High Risk" },
+    { name: "Bowel resection / Subtotal colectomy / Abdominoperineal resection (ตัดต่อลำไส้)[cite: 5],[cite: 10]", risk: "high", riskLabel: "High Risk" },
     { name: "PEG placement (เจาะสายให้อาหารทางหน้าท้อง)[cite: 5]", risk: "high", riskLabel: "High Risk" },
     { name: "ERCP (ส่องกล้องท่อน้ำดีและตับอ่อน)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Surgery in highly vascular organs (ผ่าตัดอวัยวะเลือดออกง่าย เช่น ตับ, ม้าม, ไต)[cite: 5]", risk: "high", riskLabel: "High Risk" },
-    { name: "Cardiac surgery / CABG (ผ่าตัดหัวใจ, บายพาส)[cite: 5]", risk: "high", riskLabel: "High Risk" },
+    { name: "Surgery in highly vascular organs / Adrenal resection (ผ่าตัดอวัยวะเลือดออกง่าย เช่น ตับ, ม้าม, ไต, ต่อมหมวกไต)[cite: 5],[cite: 14]", risk: "high", riskLabel: "High Risk" },
+    { name: "Cardiac surgery / CABG / Heart valve replacement (ผ่าตัดหัวใจ, บายพาส, เปลี่ยนลิ้นหัวใจ)[cite: 5],[cite: 12]", risk: "high", riskLabel: "High Risk" },
+    { name: "Complex left-sided ablation (จี้ไฟฟ้าหัวใจชนิดซับซ้อน เช่น PVI, VT ablation)[cite: 12]", risk: "high", riskLabel: "High Risk" },
+    { name: "Major Vascular surgery / AAA repair / Limb revascularization (ผ่าตัดหลอดเลือดใหญ่, ตัดต่อหลอดเลือดแขนขา)[cite: 5],[cite: 14]", risk: "high", riskLabel: "High Risk" },
+    { name: "Trauma surgery / Multiple trauma (ผ่าตัดอุบัติเหตุรุนแรง)[cite: 10]", risk: "high", riskLabel: "High Risk" },
     { name: "Any major operation > 45 min (การผ่าตัดที่นานกว่า 45 นาที)[cite: 5]", risk: "high", riskLabel: "High Risk" },
     { name: "Tracheostomy (เจาะคอ) *เสี่ยงอุดกั้นทางเดินหายใจ", risk: "high", riskLabel: "High Risk" },
-    { name: "Cervical/Thoracic/Lumbar epidurals (ฉีดยาบล็อกช่องเหนือไขสันหลัง)", risk: "high", riskLabel: "High Risk" },
-    { name: "Trigeminal / Sphenopalatine blocks (ฉีดยาบล็อกเส้นประสาทใบหน้า)[cite: 7]", risk: "high", riskLabel: "High Risk" },
-    { name: "Peripheral nerve stimulation trial/implant (ฝังเครื่องกระตุ้นเส้นประสาท)[cite: 7]", risk: "high", riskLabel: "High Risk" },
+    { name: "Cervical/Thoracic/Lumbar epidurals (ฉีดยาบล็อกช่องเหนือไขสันหลัง)[cite: 8]", risk: "high", riskLabel: "High Risk" },
+    { name: "Trigeminal / Ophthalmic / Sphenopalatine ganglion blocks (ฉีดยาบล็อกเส้นประสาทใบหน้า)[cite: 8]", risk: "high", riskLabel: "High Risk" },
+    { name: "Peripheral nerve stimulation trial/implant (ฝังเครื่องกระตุ้นเส้นประสาท)[cite: 8]", risk: "high", riskLabel: "High Risk" },
 
     // ⚫ Neuroaxial / Critical Site
-    { name: "Intracranial surgery (ผ่าตัดสมอง / เปิดกะโหลกศีรษะ)[cite: 5]", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" },
-    { name: "Spinal surgery (ผ่าตัดกระดูกสันหลัง / ไขสันหลัง)[cite: 5]", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" },
-    { name: "Neuraxial anesthesia / Epidural injections (บล็อกหลัง, แทงเข็มไขสันหลัง)[cite: 5]", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" },
+    { name: "Intracranial surgery / Craniotomy (ผ่าตัดสมอง / เปิดกะโหลกศีรษะ)[cite: 5],[cite: 9],[cite: 17]", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" },
+    { name: "Spinal surgery / Spinal canal procedures (ผ่าตัดกระดูกสันหลัง / ไขสันหลัง)[cite: 5],[cite: 9],[cite: 17]", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" },
+    { name: "Neuraxial anesthesia (บล็อกหลัง, แทงเข็มไขสันหลัง)[cite: 5],[cite: 9]", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" },
     { name: "Posterior eye surgery (ผ่าตัดจอประสาทตา, ส่วนหลังลูกตา)", risk: "neuro-spine", riskLabel: "Neuroaxial/Critical Site" }
 ];
 
@@ -497,26 +512,24 @@ function processResults() {
 
             if (!advice) { 
                 if (bleedRisk === 'minimal') {
-                     advice = `<strong>${drug.name}:</strong> พิจารณาไม่หยุดยา (งดมื้อเช้าวันผ่าตัด) หรือหยุด 1 วัน[cite: 4],[cite: 5]`;
+                     advice = `<strong>${drug.name}:</strong> พิจารณาไม่หยุดยา (งดมื้อเช้าวันผ่าตัด) หรือหยุด 1 วัน`;
                      styleClass = "rec-continue";
                 } else {
-                     advice = `<strong>${drug.name}:</strong> <span style="color:red">หยุดยา ${stopDays} วันก่อนผ่าตัด (งด Bridging)[cite: 4]</span>`;
+                     advice = `<strong>${drug.name}:</strong> <span style="color:red">หยุดยา ${stopDays} วันก่อนผ่าตัด (งด Bridging)</span>`;
                      if (crcl < 30) advice += ` <br>⚠️ ระวัง: ไตเสื่อมอาจต้องหยุดนานกว่านี้`;
                 }
             }
             
-            // เพิ่ม: การเริ่มยาหลังผ่าตัด (Resumption)
             advice += `<br><small>🟢 <strong>การเริ่มยาหลังผ่าตัด (Resumption):</strong> `;
             if (bleedRisk === 'minimal' || bleedRisk === 'low-mod') {
-                advice += `เริ่มยาได้หลังผ่านไปอย่างน้อย 24 ชั่วโมง[cite: 4],[cite: 5]</small>`;
+                advice += `เริ่มยาได้หลังผ่านไปอย่างน้อย 24 ชั่วโมง</small>`;
             } else {
-                advice += `ชะลอการเริ่มยาไปที่ 48-72 ชั่วโมง เพื่อป้องกันเลือดออกซ้ำรุนแรง[cite: 4],[cite: 5]<br>*(ระหว่าง 48-72 ชม. แรกที่ทาน DOACs ไม่ได้ อาจพิจารณาให้ LMWH prophylactic dose เช่น Enoxaparin 40 mg แทนชั่วคราวเพื่อป้องกัน DVT)*[cite: 4],[cite: 5]</small>`;
+                advice += `ชะลอการเริ่มยาไปที่ 48-72 ชั่วโมง เพื่อป้องกันเลือดออกซ้ำรุนแรง<br>*(ระหว่าง 48-72 ชม. แรกที่ทาน DOACs ไม่ได้ อาจพิจารณาให้ LMWH prophylactic dose เช่น Enoxaparin 40 mg แทนชั่วคราวเพื่อป้องกัน DVT)*</small>`;
             }
             
-            // Reversal Agent
             advice += `<br><small>🚨 <strong>Emergency Reversal:</strong> `;
-            if (drug.category === 'doac_dabi') advice += `Idarucizumab (Praxbind) 5g IV หรือ Dialysis[cite: 4]</small>`;
-            else advice += `Andexanet alfa หรือ 4F-PCC (Beriplex 50 units/kg)[cite: 4]</small>`;
+            if (drug.category === 'doac_dabi') advice += `Idarucizumab (Praxbind) 5g IV หรือ Dialysis</small>`;
+            else advice += `Andexanet alfa หรือ 4F-PCC (Beriplex 50 units/kg)</small>`;
         }
 
         // 3. Antiplatelets
@@ -527,7 +540,7 @@ function processResults() {
                 if (bleedRisk === 'neuro-spine') {
                     advice = `<strong>${drug.name}:</strong> หยุดยา 7 วันก่อนผ่าตัด (Neuro/Eye Risk)`;
                 } else {
-                    advice = `<strong>${drug.name}:</strong> <span style="color:green">ไม่ต้องหยุดยา (Continue)[cite: 4]</span>`;
+                    advice = `<strong>${drug.name}:</strong> <span style="color:green">ไม่ต้องหยุดยา (Continue)</span>`;
                     styleClass = "rec-continue";
                 }
             } else {
@@ -535,16 +548,16 @@ function processResults() {
                 if (drug.id === 'ticagrelor') days = 3; 
                 if (drug.id === 'prasugrel') days = 7;
                 if (drug.id === 'cilostazol') days = 3; 
-                advice = `<strong>${drug.name}:</strong> หยุดยา ${days} วันก่อนผ่าตัด[cite: 4]`;
-                advice += `<br><small>⚠️ <strong>คำเตือน:</strong> ไม่แนะนำให้ทำ Bridging ด้วยยาต้านเกล็ดเลือดแบบฉีด (Glycoprotein IIb-IIIa inhibitors) หรือ LMWH ในช่วงที่หยุดยา P2Y12 inhibitors[cite: 4]</small>`;
-                advice += `<br><small>🚨 <strong>Emergency/Failed to Stop:</strong> ไม่มียาแก้ฤทธิ์โดยตรง แพทย์อาจพิจารณา Platelet transfusion หรือ Tranexamic acid[cite: 4]</small>`;
+                advice = `<strong>${drug.name}:</strong> หยุดยา ${days} วันก่อนผ่าตัด`;
+                advice += `<br><small>⚠️ <strong>คำเตือน:</strong> ไม่แนะนำให้ทำ Bridging ด้วยยาต้านเกล็ดเลือดแบบฉีด (Glycoprotein IIb-IIIa inhibitors) หรือ LMWH ในช่วงที่หยุดยา P2Y12 inhibitors</small>`;
+                advice += `<br><small>🚨 <strong>Emergency/Failed to Stop:</strong> ไม่มียาแก้ฤทธิ์โดยตรง แพทย์อาจพิจารณา Platelet transfusion หรือ Tranexamic acid</small>`;
             }
 
             const stentStatus = document.getElementById('stent_status')?.value;
             if (stentStatus === 'yes') {
                  advice += `<br><div class="warning-box" style="margin-top:5px; background:#FFF0F0; padding:10px; border:1px solid red; border-radius:5px;">
                  <strong>🚨 Stent Alert:</strong> ผู้ป่วยเพิ่งใส่ Stent < 1 ปี<br>
-                 - โปรดปรึกษา Cardiologist ก่อนหยุดยา Antiplatelet[cite: 4]</div>`;
+                 - โปรดปรึกษา Cardiologist ก่อนหยุดยา Antiplatelet</div>`;
             }
         }
 
@@ -604,13 +617,13 @@ function processResults() {
 
         // 7. Herbals
         else if (drug.category.startsWith('herbal')) {
-            advice = `<strong>${drug.name}:</strong> <span style="color:red">งดใช้อย่างน้อย 1-2 สัปดาห์ก่อนการผ่าตัด[cite: 4]</span><br>`;
+            advice = `<strong>${drug.name}:</strong> <span style="color:red">งดใช้อย่างน้อย 1-2 สัปดาห์ก่อนการผ่าตัด</span><br>`;
             if (drug.category === 'herbal_bleed') {
-                advice += `<small>ระวังสารสกัดแปะก๊วย กระเทียม วิตามินอี มีฤทธิ์ยับยั้งเกล็ดเลือด ทำให้เลือดออกนานขึ้น[cite: 4]</small>`;
+                advice += `<small>ระวังสารสกัดแปะก๊วย กระเทียม วิตามินอี มีฤทธิ์ยับยั้งเกล็ดเลือด ทำให้เลือดออกนานขึ้น</small>`;
             } else if (drug.category === 'herbal_cns') {
-                advice += `<small>⚠️ เซนต์จอห์นเวิร์ต (St. John's Wort) จะเหนี่ยวนำเอนไซม์ CYP450 ในตับ ทำให้ระดับยาระงับความรู้สึกต่ำกว่าปกติ[cite: 4]<br>⚠️ คาวา และวาเลอเรียน มีฤทธิ์กดประสาท เสริมฤทธิ์ยาสลบ ทำให้ฟื้นตัวช้า[cite: 4]</small>`;
+                advice += `<small>⚠️ เซนต์จอห์นเวิร์ต (St. John's Wort) จะเหนี่ยวนำเอนไซม์ CYP450 ในตับ ทำให้ระดับยาระงับความรู้สึกต่ำกว่าปกติ<br>⚠️ คาวา และวาเลอเรียน มีฤทธิ์กดประสาท เสริมฤทธิ์ยาสลบ ทำให้ฟื้นตัวช้า</small>`;
             } else if (drug.category === 'herbal_thai') {
-                advice += `<small>⚠️ กระชายดำและขมิ้นชัน รบกวนกระบวนการแข็งตัวของเลือดและขัดขวางเมแทบอลิซึมของยาในตับ[cite: 4]<br>⚠️ ฟ้าทะลายโจร (ปริมาณสูง) ส่งผลต่อระบบเอนไซม์ในตับ อาจเกิดอันตรกิริยากับยาระยะปริศัลยกรรม[cite: 4]</small>`;
+                advice += `<small>⚠️ กระชายดำและขมิ้นชัน รบกวนกระบวนการแข็งตัวของเลือดและขัดขวางเมแทบอลิซึมของยาในตับ<br>⚠️ ฟ้าทะลายโจร (ปริมาณสูง) ส่งผลต่อระบบเอนไซม์ในตับ อาจเกิดอันตรกิริยากับยาระยะปริศัลยกรรม</small>`;
             }
         }
 
@@ -856,10 +869,10 @@ function calculateCaprini() {
     const adviceText = document.getElementById('capriniAdvice');
     
     if (score >= 5) {
-        adviceText.innerHTML = `<span style="color:red; font-weight:bold;">High Risk (Score ${score})[cite: 6]</span><br>มาตรการผสมผสาน: ต้องใช้ LMWH/UFH ร่วมกับ IPC อย่างเคร่งครัด[cite: 6],[cite: 11]`;
+        adviceText.innerHTML = `<span style="color:red; font-weight:bold;">High Risk (Score ${score})</span><br>มาตรการผสมผสาน: ต้องใช้ LMWH/UFH ร่วมกับ IPC อย่างเคร่งครัด`;
     } else if (score >= 3) {
-        adviceText.innerHTML = `<span style="color:orange; font-weight:bold;">Moderate Risk (Score ${score})[cite: 6]</span><br>พิจารณาให้ LMWH/UFH ร่วมกับการใช้ IPC[cite: 6],[cite: 11]`;
+        adviceText.innerHTML = `<span style="color:orange; font-weight:bold;">Moderate Risk (Score ${score})</span><br>พิจารณาให้ LMWH/UFH ร่วมกับการใช้ IPC`;
     } else {
-        adviceText.innerHTML = `<span style="color:green; font-weight:bold;">Low Risk (Score ${score})[cite: 6]</span><br>กระตุ้นลุกเดินเร็ว (Early ambulation) หรือ IPC[cite: 6],[cite: 11]`;
+        adviceText.innerHTML = `<span style="color:green; font-weight:bold;">Low Risk (Score ${score})</span><br>กระตุ้นลุกเดินเร็ว (Early ambulation) หรือ IPC`;
     }
 }
